@@ -1,6 +1,6 @@
 ### MiniShell
 
-``` Note
+```bash
 * Pass: heker (default)
 * Bypass Forbidden
 * Bypass not acceptable
@@ -15,7 +15,7 @@
 
 ## Attention!!!
 
-```
+```bash
 + Pake Yg Bener
 + Recode? GELAY MINI SHELL
 + Mini Shell Gratis! Jangan Dijual Belikan
