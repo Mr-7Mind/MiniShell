@@ -1,5 +1,4 @@
 ### MiniShell
-Run the Whatsapp bot
 
 ``` Note
 * Pass: heker (default)
@@ -16,7 +15,9 @@ Run the Whatsapp bot
 
 ## Attention!!!
 
-Pake Yg Bener
-Recode? GELAY MINI SHELL
-Mini Shell Gratis! Jangan Dijual Belikan
-<b>Shell Ber Logger!!! Bikin File Baru, Lalu hapus loggernya!
+```
++ Pake Yg Bener
++ Recode? GELAY MINI SHELL
++ Mini Shell Gratis! Jangan Dijual Belikan
++ Shell Ber Logger!!! Bikin File Baru, Lalu hapus loggernya!
+```
