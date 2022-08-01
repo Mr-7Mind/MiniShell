@@ -6,11 +6,11 @@
 * Bypass not acceptable
 * Bypass imunify360
 * Add Doc Root
-* Server
-* MySql
-* Curl
-* PHP Version
-* IP Address
+* Add Server
+* Add MySql
+* Add Curl
+* Add PHP Version
+* Add IP Address
 ```
 
 ## Attention!!!
