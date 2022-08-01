@@ -1,11 +1,22 @@
-# MiniShell<b>
-Pass: heker (default)<b>
-Bypass Forbidden<b>
-Bypass not acceptable<b>
-Bypass imunify360<b>
-Pake Yg Bener<b>
-Recode? GELAY MINI SHELL<b>
-<b>
-Mini Shell Gratis! Jangan Dijual Belikan<b>
-<b>NOTE!!!!!!!!
+### MiniShell
+Run the Whatsapp bot
+
+``` Note
+* Pass: heker (default)
+* Bypass Forbidden
+* Bypass not acceptable
+* Bypass imunify360
+* Add Doc Root
+* Server
+* MySql
+* Curl
+* PHP Version
+* IP Address
+```
+
+## Attention!!!
+
+Pake Yg Bener
+Recode? GELAY MINI SHELL
+Mini Shell Gratis! Jangan Dijual Belikan
 <b>Shell Ber Logger!!! Bikin File Baru, Lalu hapus loggernya!
