@@ -19,5 +19,5 @@
 + Pake Yg Bener
 + Recode? GELAY MINI SHELL
 + Mini Shell Gratis! Jangan Dijual Belikan
-+ Shell Ber Logger!!! Bikin File Baru, Lalu hapus loggernya!
++ Have Fun
 ```
