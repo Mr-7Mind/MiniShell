@@ -16,8 +16,8 @@
 ## Attention!!!
 
 ```bash
-+ Pake Yg Bener
-+ Recode? GELAY MINI SHELL
++ Request Upload? ribelcyberteam@gmail.com
++ Kang Reupload Shell Bypass
 + Mini Shell Gratis! Jangan Dijual Belikan
 + Have Fun
 ```
