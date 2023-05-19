@@ -1,7 +1,7 @@
+![alt text](https://raw.githubusercontent.com/Mr-7Mind/MiniShell/main/rct.jpg)
 ### MiniShell
 
 ```bash
-* Pass: heker (default)
 * Bypass Forbidden
 * Bypass not acceptable
 * Bypass imunify360
