@@ -1,6 +1,6 @@
 <?php
 
-//Create By Mr.Mr.7Mind & Imammrtdho
+//Create By Mr.7Mind & Imammrtdho
 //Credits By ribelcyberteam@gmail.com
 //Tele @RibelCyberTeam
 //No Rename Please
