@@ -1,13 +1,12 @@
 #!/bin/bash
-
 function potong_file() {
-  read -p $'\e[1;34mMasukkan nama file: \e[0m' input_file
+  read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
   if [ ! -f "$input_file" ]; then
-    echo -e "\e[1;31mFile $input_file tidak ditemukan.\e[0m"
+    echo -e "\e[1;31mFile $input_file Tidak Ditemukan.\e[0m"
     return
   fi
 
-  read -p $'\e[1;34mMasukkan jumlah potongan per file: \e[0m' line_per_file
+  read -p $'\e[1;34mJumlah Yang Diinginkan: \e[0m' line_per_file
   if ! [[ "$line_per_file" =~ ^[0-9]+$ ]]; then
     echo -e "\e[1;31mInput tidak valid. Harap masukkan angka.\e[0m"
     return
@@ -26,11 +25,11 @@ function potong_file() {
     file_counter=$((file_counter + 1))
   done
 
-  echo -e "\e[1;32mProses pemotongan dan pembuatan file selesai.\e[0m"
+  echo -e "\e[1;32mMemotong Line Selesai... \e[0m"
 }
 
 function hapus_baris_duplikat() {
-  read -p $'\e[1;34mMasukkan nama file yang ingin dihapus duplikatnya: \e[0m' input_file
+  read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
   if [ ! -f "$input_file" ]; then
     echo -e "\e[1;31mFile $input_file tidak ditemukan.\e[0m"
     return
@@ -43,19 +42,19 @@ function hapus_baris_duplikat() {
 }
 
 function filter_domain() {
-  read -p $'\e[1;34mMasukkan nama file: \e[0m' input_file
+  read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
   if [ ! -f "$input_file" ]; then
     echo -e "\e[1;31mFile $input_file tidak ditemukan.\e[0m"
     return
   fi
 
-  read -p $'\e[1;34mMasukkan domain yang ingin difilter (contoh: .com): \e[0m' domain_suffix
+  read -p $'\e[1;34mMasukkan domain (contoh: .com): \e[0m' domain_suffix
   if [ -z "$domain_suffix" ]; then
     echo -e "\e[1;31mAkhiran domain tidak boleh kosong.\e[0m"
     return
   fi
 
-  read -p $'\e[1;34mMasukkan nama file baru: \e[0m' output_file_name
+  read -p $'\e[1;34mMasukkan Nama File Baru: \e[0m' output_file_name
   if [ -z "$output_file_name" ]; then
     echo -e "\e[1;31mNama file baru tidak boleh kosong.\e[0m"
     return
@@ -65,21 +64,72 @@ function filter_domain() {
 
   grep "$domain_suffix" "$input_file" > "$output_file"
 
-  echo -e "\e[1;32mProses filter domain dan pembuatan file selesai.\e[0m"
+  echo -e "\e[1;32mFilter Domain Selesai... \e[0m"
+}
+
+function sort_by_alphabet() {
+  read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
+  if [ ! -f "$input_file" ]; then
+    echo -e "\e[1;31mFile $input_file tidak ditemukan.\e[0m"
+    return
+  fi
+
+  read -p $'\e[1;34mMasukkan Nama File Baru: \e[0m' output_file_name
+  if [ -z "$output_file_name" ]; then
+    echo -e "\e[1;31mNama file baru tidak boleh kosong.\e[0m"
+    return
+  fi
+
+  output_file="${output_file_name}.txt"
+
+  sort "$input_file" > "$output_file"
+
+  echo -e "\e[1;32mSort By Alphabet Selesai... \e[0m"
+}
+
+function merge_files() {
+  read -p "Masukkan Nama File 1: " file1
+  if [ ! -f "$file1" ]; then
+    echo "File $file1 tidak ditemukan."
+    return
+  fi
+
+  read -p "Masukkan Nama File 2: " file2
+  if [ ! -f "$file2" ]; then
+    echo "File $file2 tidak ditemukan."
+    return
+  fi
+
+  echo "Proses Menggabungkan isi dari $file1 ke $file2 ."
+
+  while read -r line; do
+    echo "$line" >> "$file2"
+  done < "$file1"
+
+  echo "Penggabungan selesai. Hasil tersimpan di $file2."
 }
 
 function show_menu() {
-  echo -e "\e[1;35m===== Mr.7Mind MENU =====\e[0m"
-  echo -e "\e[1;36m1. Memotong File\e[0m"
-  echo -e "\e[1;36m2. Menghapus Duplikat\e[0m"
-  echo -e "\e[1;36m3. Filter Sesuai Domain\e[0m"
-  echo -e "\e[1;36m4. Keluar\e[0m"
-  echo -e "\e[1;35m======== SIMPLE ========\e[0m"
+  echo -e "\033[1;32mPowered By RibelCyberTeam (Mr.7Mind)\033[0m"
+  echo -e "\033[1;32m:'######::'####:'##::::'##:'########::'##:::::::'########:'########::'#######:::'#######::'##::::::::'######::\033[0m"
+  echo -e "\033[1;32m'##... ##:. ##:: ###::'###: ##.... ##: ##::::::: ##.....::... ##..::'##.... ##:'##.... ##: ##:::::::'##... ##:\033[0m"
+  echo -e "\033[1;32m ##:::..::: ##:: ####'####: ##:::: ##: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::\033[0m"
+  echo -e "\033[1;32m. ######::: ##:: ## ### ##: ########:: ##::::::: ######:::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::. ######::\033[0m"
+  echo -e "\033[1;32m:..... ##:: ##:: ##. #: ##: ##.....::: ##::::::: ##...::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::::..... ##:\033[0m"
+  echo -e "\033[1;32m'##::: ##:: ##:: ##:.:: ##: ##:::::::: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::'##::: ##:\033[0m"
+  echo -e "\033[1;32m. ######::'####: ##:::: ##: ##:::::::: ########: ########:::: ##::::. #######::. #######:: ########:. ######::\033[0m"
+  echo -e "\033[1;32m:......:::....::..:::::..::..:::::::::........::........:::::..::::::.......::::.......:::........:::......:::\033[0m"
+  echo -e "\033[1;32m1. Memotong File\033[0m"
+  echo -e "\033[1;32m2. Menghapus Duplikat\033[0m"
+  echo -e "\033[1;32m3. Filter Sesuai Domain\033[0m"
+  echo -e "\033[1;32m4. Sortir Berdasarkan Abjad\033[0m"
+  echo -e "\033[1;32m5. Menggabungkan 2 List Text\033[0m"
+  echo -e "\033[1;32m6. Keluar\033[0m"
 }
 
 while true; do
   show_menu
-  read -p $'\e[1;34mPilih menu [1/2/3/4]: \e[0m' menu_choice
+  read -p $'\e[1;32mPilih menu: \e[0m' menu_choice
 
   case $menu_choice in
     1)
@@ -92,11 +142,17 @@ while true; do
       filter_domain
       ;;
     4)
-      echo -e "\e[1;33mTerima kasih, Follow https://github.com/Mr-7Mind.\e[0m"
+      sort_by_alphabet
+      ;;
+    5)
+	  merge_files
+	  ;;
+	6)
+      echo -e "\e[1;33mTerima kasih, Follow github.com/Mr-7Mind \e[0m"
       exit 0
       ;;
     *)
-      echo -e "\e[1;31mPilihan tidak valid. Harap pilih 1, 2, 3, atau 4.\e[0m"
+      echo -e "\e[1;31mPilihan tidak valid. Harap pilih 1, 2, 3, 4, atau 5.\e[0m"
       ;;
   esac
 
