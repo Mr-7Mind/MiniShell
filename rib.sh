@@ -28,6 +28,26 @@ function potong_file() {
   echo -e "\e[1;32mMemotong Line Selesai... \e[0m"
 }
 
+function ekstrak_domain() {
+  read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
+  if [ ! -f "$input_file" ]; then
+    echo -e "\e[1;31mFile $input_file tidak ditemukan.\e[0m"
+    return
+  fi
+
+  read -p $'\e[1;34mMasukkan Nama File Baru: \e[0m' output_file_name
+  if [ -z "$output_file_name" ]; then
+    echo -e "\e[1;31mNama file baru tidak boleh kosong.\e[0m"
+    return
+  fi
+
+  output_file="${output_file_name}.txt"
+
+  awk -F '/' '{ print $NF }' "$input_file" > "$output_file"
+
+  echo -e "\e[1;32mEkstraksi Domain Selesai... \e[0m"
+}
+
 function hapus_baris_duplikat() {
   read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
   if [ ! -f "$input_file" ]; then
@@ -48,12 +68,6 @@ function filter_domain() {
     return
   fi
 
-  read -p $'\e[1;34mMasukkan domain (contoh: .com): \e[0m' domain_suffix
-  if [ -z "$domain_suffix" ]; then
-    echo -e "\e[1;31mAkhiran domain tidak boleh kosong.\e[0m"
-    return
-  fi
-
   read -p $'\e[1;34mMasukkan Nama File Baru: \e[0m' output_file_name
   if [ -z "$output_file_name" ]; then
     echo -e "\e[1;31mNama file baru tidak boleh kosong.\e[0m"
@@ -62,7 +76,16 @@ function filter_domain() {
 
   output_file="${output_file_name}.txt"
 
-  grep "$domain_suffix" "$input_file" > "$output_file"
+  grep -Eo '([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})' "$input_file" | \
+  while read -r domain; do
+    extension="${domain##*.}"
+
+    if [[ "$extension" =~ ^(php|html|htm|xml|zip)$ ]]; then
+      echo "File $domain diabaikan karena ekstensi $extension terdapat dalam daftar hitam."
+    else
+      echo "$domain" >> "$output_file"
+    fi
+  done
 
   echo -e "\e[1;32mFilter Domain Selesai... \e[0m"
 }
@@ -124,7 +147,8 @@ function show_menu() {
   echo -e "\033[1;32m3. Filter Sesuai Domain\033[0m"
   echo -e "\033[1;32m4. Sortir Berdasarkan Abjad\033[0m"
   echo -e "\033[1;32m5. Menggabungkan 2 List Text\033[0m"
-  echo -e "\033[1;32m6. Keluar\033[0m"
+  echo -e "\033[1;32m6. Ekstrak Domain Dari File\033[0m"
+  echo -e "\033[1;32m7. Keluar\033[0m"
 }
 
 while true; do
@@ -148,6 +172,9 @@ while true; do
 	  merge_files
 	  ;;
 	6)
+	  filter_domain
+	  ;;
+	7)
       echo -e "\e[1;33mTerima kasih, Follow github.com/Mr-7Mind \e[0m"
       exit 0
       ;;
