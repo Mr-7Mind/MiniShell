@@ -9,7 +9,7 @@ function merge_files() {
         echo "File $file_input berhasil digabungkan ke $nama_file_output"
     done
 
-    echo -e "\e[1;32mPenggabungan file berhasil!\e[0m"
+    echo -e "\e[1;32mPenggabungan file berhasil...\e[0m"
 }
 
 function show_menu() {
