@@ -1,4 +1,36 @@
 #!/bin/bash
+
+function merge_files() {
+    nama_file_output=$1
+    shift
+
+    for file_input in "$@"; do
+        cat "$file_input" >> "$nama_file_output"
+        echo "File $file_input berhasil digabungkan ke $nama_file_output"
+    done
+
+    echo -e "\e[1;32mPenggabungan file berhasil!\e[0m"
+}
+
+function show_menu() {
+  echo -e "\033[1;32mPowered By RibelCyberTeam (Mr.7Mind)\033[0m"
+  echo -e "\033[1;32m:'######::'####:'##::::'##:'########::'##:::::::'########:'########::'#######:::'#######::'##::::::::'######::\033[0m"
+  echo -e "\033[1;32m'##... ##:. ##:: ###::'###: ##.... ##: ##::::::: ##.....::... ##..::'##.... ##:'##.... ##: ##:::::::'##... ##:\033[0m"
+  echo -e "\033[1;32m ##:::..::: ##:: ####'####: ##:::: ##: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::\033[0m"
+  echo -e "\033[1;32m. ######::: ##:: ## ### ##: ########:: ##::::::: ######:::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::. ######::\033[0m"
+  echo -e "\033[1;32m:..... ##:: ##:: ##. #: ##: ##.....::: ##::::::: ##...::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::::..... ##:\033[0m"
+  echo -e "\033[1;32m'##::: ##:: ##:: ##:.:: ##: ##:::::::: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::'##::: ##:\033[0m"
+  echo -e "\033[1;32m. ######::'####: ##:::: ##: ##:::::::: ########: ########:::: ##::::. #######::. #######:: ########:. ######::\033[0m"
+  echo -e "\033[1;32m:......:::....::..:::::..::..:::::::::........::........:::::..::::::.......::::.......:::........:::......:::\033[0m"
+  echo -e "\033[1;32m1. Memotong File\033[0m"
+  echo -e "\033[1;32m2. Menghapus Duplikat\033[0m"
+  echo -e "\033[1;32m3. Filter Sesuai Domain\033[0m"
+  echo -e "\033[1;32m4. Sortir Berdasarkan Abjad\033[0m"
+  echo -e "\033[1;32m5. Menggabungkan File List\033[0m"
+  echo -e "\033[1;32m6. Ekstrak Domain Dari File\033[0m"
+  echo -e "\033[1;32m7. Keluar\033[0m"
+}
+
 function potong_file() {
   read -p $'\e[1;34mMasukkan Nama File: \e[0m' input_file
   if [ ! -f "$input_file" ]; then
@@ -80,7 +112,7 @@ function filter_domain() {
   while read -r domain; do
     extension="${domain##*.}"
 
-    if [[ "$extension" =~ ^(php|html|htm|xml|zip)$ ]]; then
+    if [[ "$extension" =~ ^(php|html|htm|xml|zip|aspx|php1|php2|php3|php4|php5|php6|php7)$ ]]; then
       echo "File $domain diabaikan karena ekstensi $extension terdapat dalam daftar hitam."
     else
       echo "$domain" >> "$output_file"
@@ -110,45 +142,33 @@ function sort_by_alphabet() {
   echo -e "\e[1;32mSort By Alphabet Selesai... \e[0m"
 }
 
-function merge_files() {
-  read -p "Masukkan Nama File 1: " file1
-  if [ ! -f "$file1" ]; then
-    echo "File $file1 tidak ditemukan."
+function menu_merge_files() {
+  read -p $'\e[1;34mMasukkan Nama File Output: \e[0m' file_output
+  if [ -z "$file_output" ]; then
+    echo -e "\e[1;31mNama file output tidak boleh kosong.\e[0m"
     return
   fi
 
-  read -p "Masukkan Nama File 2: " file2
-  if [ ! -f "$file2" ]; then
-    echo "File $file2 tidak ditemukan."
+  files_to_merge=()
+  while true; do
+    read -p $'\e[1;34mMasukkan Nama File (tekan Enter untuk selesai): \e[0m' file_input
+    if [ -z "$file_input" ]; then
+      break
+    fi
+
+    if [ ! -f "$file_input" ]; then
+      echo -e "\e[1;31mFile $file_input tidak ditemukan.\e[0m"
+    else
+      files_to_merge+=("$file_input")
+    fi
+  done
+
+  if [ ${#files_to_merge[@]} -eq 0 ]; then
+    echo -e "\e[1;31mTidak ada file yang dimasukkan.\e[0m"
     return
   fi
 
-  echo "Proses Menggabungkan isi dari $file1 ke $file2 ."
-
-  while read -r line; do
-    echo "$line" >> "$file2"
-  done < "$file1"
-
-  echo "Penggabungan selesai. Hasil tersimpan di $file2."
-}
-
-function show_menu() {
-  echo -e "\033[1;32mPowered By RibelCyberTeam (Mr.7Mind)\033[0m"
-  echo -e "\033[1;32m:'######::'####:'##::::'##:'########::'##:::::::'########:'########::'#######:::'#######::'##::::::::'######::\033[0m"
-  echo -e "\033[1;32m'##... ##:. ##:: ###::'###: ##.... ##: ##::::::: ##.....::... ##..::'##.... ##:'##.... ##: ##:::::::'##... ##:\033[0m"
-  echo -e "\033[1;32m ##:::..::: ##:: ####'####: ##:::: ##: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::: ##:::..::\033[0m"
-  echo -e "\033[1;32m. ######::: ##:: ## ### ##: ########:: ##::::::: ######:::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::. ######::\033[0m"
-  echo -e "\033[1;32m:..... ##:: ##:: ##. #: ##: ##.....::: ##::::::: ##...::::::: ##:::: ##:::: ##: ##:::: ##: ##::::::::..... ##:\033[0m"
-  echo -e "\033[1;32m'##::: ##:: ##:: ##:.:: ##: ##:::::::: ##::::::: ##:::::::::: ##:::: ##:::: ##: ##:::: ##: ##:::::::'##::: ##:\033[0m"
-  echo -e "\033[1;32m. ######::'####: ##:::: ##: ##:::::::: ########: ########:::: ##::::. #######::. #######:: ########:. ######::\033[0m"
-  echo -e "\033[1;32m:......:::....::..:::::..::..:::::::::........::........:::::..::::::.......::::.......:::........:::......:::\033[0m"
-  echo -e "\033[1;32m1. Memotong File\033[0m"
-  echo -e "\033[1;32m2. Menghapus Duplikat\033[0m"
-  echo -e "\033[1;32m3. Filter Sesuai Domain\033[0m"
-  echo -e "\033[1;32m4. Sortir Berdasarkan Abjad\033[0m"
-  echo -e "\033[1;32m5. Menggabungkan 2 List Text\033[0m"
-  echo -e "\033[1;32m6. Ekstrak Domain Dari File\033[0m"
-  echo -e "\033[1;32m7. Keluar\033[0m"
+  merge_files "$file_output" "${files_to_merge[@]}"
 }
 
 while true; do
@@ -169,12 +189,12 @@ while true; do
       sort_by_alphabet
       ;;
     5)
-	  merge_files
-	  ;;
-	6)
-	  filter_domain
-	  ;;
-	7)
+      menu_merge_files
+      ;;
+    6)
+      ekstrak_domain
+      ;;
+    7)
       echo -e "\e[1;33mTerima kasih, Follow github.com/Mr-7Mind \e[0m"
       exit 0
       ;;
