@@ -106,6 +106,10 @@ if (!isset($_SESSION['forbidden'])) {
 </body>
 </html>
 <?php
+exit;
+}
+?>
+<?php
 echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/183index.html"); // Alert for update
 ?>
 <?php
