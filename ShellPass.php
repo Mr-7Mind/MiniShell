@@ -113,7 +113,7 @@ $Array = [
 	}
 	?>
 	<?php
-	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/185index.html"); // Alert for update
+	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/186index.html"); // Alert for update
 	?>
 	<?php
 	if(isset($_7["left"])) {
