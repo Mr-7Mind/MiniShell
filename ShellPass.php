@@ -1418,7 +1418,7 @@ $Array = [
 			}
 		echo "
 		<tr>
-		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?path=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
+		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?dir=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
 			<td class='text-center'>file</td>
 			<td class='text-center'>$ft</td>
 			<td class='text-center'>".sz(filesize($file))."</td>
