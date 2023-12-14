@@ -780,7 +780,7 @@ $Array = [
 			</form>
 		</div>";
 		}
-		// Upload Via Link
+		// Upload Via Link raw
 		if ($_7['id'] == 'uploadvialink') {
 			s();
 			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
