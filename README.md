@@ -1,5 +1,6 @@
 ```bash
 + ShellPass.php
++ - Default Pass: heker
 + - I update when i added new feature
 + - Have Fun
 ```
@@ -10,7 +11,6 @@
 ## Attention!!!
 
 ```bash
-+ Request Upload? ribelcyberteam@gmail.com
 + Kang Reupload Shell Bypass
 + Mini Shell Gratis! Jangan Dijual Belikan
 + Have Fun
